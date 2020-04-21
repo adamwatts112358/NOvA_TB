@@ -1,0 +1,356 @@
+#  MC6 - MC7 simulation
+#  code obtained from Adam Watts
+#  lengths are in mm, fields is Tesla !  Momentum in MeV
+#______________________________________________________________________
+
+param kill_aperture=0
+param b_field=-0.9
+
+#physics QGSP_BIC
+physics FTFP_BERT
+
+param worldMaterial=AIR
+param inch=25.4
+param ft=304.8
+param translatez=(2220.965*25.4)+50066.48+(3048/2.0)
+param translatey=720.5472
+param quadrupoleColor=0.79,0.38,0.14
+param dipoleColor=0,0,1
+param trimColor=0.31,0.55,0.2
+param vacuumColor=0.5,0.5,0.5
+param collimatorColor=0.0,0.8,0.8
+param scraperColor=0.8,0,0
+param det_space=200.0
+g4ui when=4 "/vis/viewer/set/background 1 1 1"
+g4ui when=4 "vis/scene/add/axes 0 0 -1500 100000 mm"
+param Bscale=1.
+param eventTimeLimit=120.0
+
+param -unset p=64.0 #default momentum in GeV/c
+
+# Dipole currents
+param mc6di=452.5*($p/64.0)
+
+param mc6q1i=19.31827941*($p/64.0)
+param mc6q2i=-642.8273639*($p/64.0)
+param mc6q3i=37.33991241*($p/64.0)
+param mc6q4i=-29.57469877*($p/64.0)
+param mc6q5i=429.9581841*($p/64.0)
+param mc6q6i=-39.7818009*($p/64.0)
+
+# Transfer functions [(T/m)/A]
+param xfer_3Q120=0.18570791858
+param xfer_4Q120=0.01842553191
+param xfer_EPB=0.000888625592
+
+# Quadrupole gradients [T/m]
+param mc6Q1g=$mc6q1i*$xfer_3Q120
+param mc6Q2g=$mc6q2i*$xfer_4Q120
+param mc6Q3g=$mc6q3i*$xfer_3Q120
+param mc6Q4g=$mc6q4i*$xfer_3Q120
+param mc6Q5g=$mc6q5i*$xfer_4Q120
+param mc6Q6g=$mc6q6i*$xfer_3Q120
+
+# Dipole fields
+param mc6db=$mc6di*$xfer_EPB
+
+#beam gaussian particle=proton nEvents=1.0E5 z=-200 sigmaX=1.0 sigmaY=1.0 y=-8 rotation=x-1.31 meanMomentum=120000.0
+param -unset nParticles=1000
+beam gaussian particle=proton nEvents=$nParticles firstEvent=$first lastEvent=$last z=-200 sigmaX=1.0 sigmaY=1.0 y=-8 rotation=x-1.31 meanMomentum=120000.0
+trackcuts kineticEnergyCut=1000.0 keep=proton,mu+,mu-,pi+,pi-,kaon+,kaon-
+
+virtualdetector Det width=4400 height=4400 length=1 color=0,0,0
+
+#------------Target&Cage,Absorber,Collimator----------------------
+box Target  width=5 height=5 length=200 material=Cu color=1,0,0
+place Target rename=MC6T1 z=100 rotation=x-1.31
+
+box CageV height=450 width=100  length=2133.6 color=0.6,0.6,0.6  material=STAINLESS-STEEL kill=$kill_aperture
+place CageV z=1016.5 x=-150 y=24.1 rotation=x-1.31
+place CageV z=1016.5 x=+150 y=24.1 rotation=x-1.31
+
+box CageH height=100  width=400 length=2133.6 color=0.6,0.6,0.6  material=STAINLESS-STEEL kill=$kill_aperture
+place CageH z=1016.5 y=-251.9 rotation=x-1.31
+place CageH z=1016.5 y=+299.17 rotation=x-1.31
+
+box AbsV height=450 width=87.3 length=5.188*$ft color=1,0,0  material=CONCRETE kill=$kill_aperture
+place AbsV z=1293.9 x=56.35 y=29.6 rotation=x-1.31
+place AbsV z=1293.9 x=-56.35 y=29.6 rotation=x-1.31
+
+box AbsH height=212.3 width=$inch length=5.1888*$ft color=1,0,0  material=CONCRETE kill=$kill_aperture
+place AbsH z=1293.9 y=148.45 rotation=x-1.31
+place AbsH z=1293.9 y=-89.25 rotation=x-1.31
+
+box Coll_All height=31.75 width=431.8 length=1828.8 color=0,1,0 material=Al kill=$kill_aperture
+box Coll_Concr height=914.4 width=914.4 length=1828.8 color=0,1,0 material=CONCRETE kill=$kill_aperture
+place Coll_All z=3148 x=241.3 y=71.95 rotation=x-0.99
+place Coll_All z=3148 x=-241.3 y=71.95 rotation=x-0.99
+place Coll_Concr z=3148 y=545.096 rotation=x-0.99
+place Coll_Concr z=3148 y=-401.196 rotation=x-0.99
+
+#--------------------------------------------------------------------
+
+genericbend EPB fieldHeight=35.6 fieldWidth=124.5 fieldLength=3048 fieldMaterial=AIR ironColor=$dipoleColor ironWidth=281.5 ironHeight=281.5 ironLength=3048 fringe=1 kill=$kill_aperture
+genericquad 3Q120 fieldLength=3048 fieldMaterial=AIR ironLength=3048 fringe=1 apertureRadius=38.1 ironRadius=305 ironColor=$quadrupoleColor kill=$kill_aperture
+genericquad 4Q120 fieldLength=3048 fieldMaterial=AIR ironLength=3048 fringe=1 apertureRadius=50.8 ironRadius=438  ironColor=$quadrupoleColor kill=$kill_aperture
+genericbend 4430 fieldHeight=101.6 fieldWidth=101.6 fieldLength=762 fieldMaterial=AIR ironLength=762 ironHeight=295 ironWidth=397 ironColor=$trimColor fringe=1 kill=$kill_aperture
+genericbend Mom_Coll fieldHeight=127 fieldWidth=127 fieldLength=1676.4 fieldMaterial=AIR ironLength=1676.4 ironHeight=295 ironWidth=397 ironColor=$collimatorColor By=0 fringe=0 kill=$kill_aperture
+
+#genericquad Vac gradient=0 fringe=0 apertureRadius=120 ironRadius=121 fieldMaterial=Vacuum ironColor=0.5,0.5,0.5
+#place Vac fieldLength=141.29 ironLength=141.29 z=4908.69  y=112.66 rotation=x-1.31
+#place Vac fieldLength=404.89 ironLength=404.89 z=8158.135  y=189.461 rotation=x-1.31 
+#place Vac fieldLength=428.634 ironLength=428.634 z=11621.8995  y=269.0173 rotation=x-1.22
+#place Vac fieldLength=305.186 ironLength=305.186 z=15035.807  y=335.47 rotation=x-1.1
+#place Vac fieldLength=305.5 ironLength=305.5 z=18388.15  y=393.051 rotation=x-0.95
+
+place Det rename=Det1 z=6432.19-3048/2-$det_space y=147.5 rotation=x-1.31 format=ascii file=1_$first.txt
+place 3Q120 rename=Q1_1 z=6432.19 y=147.5 rotation=x-1.31 gradient=$mc6Q1g fieldMaterial=Vacuum
+
+place Det rename=Det2 z=9884.08-3048/2-$det_space y=224.3 rotation=x-1.31 format=ascii file=2_$first.txt
+place 3Q120 rename=Q1_2 z=9884.08 y=224.3 rotation=x-1.31 gradient=$mc6Q1g fieldMaterial=Vacuum
+
+place Det rename=Det3 z=13359.7144-3048/2-$det_space y=299.6 rotation=x-1.15 format=ascii file=3_$first.txt
+place EPB rename=MC6D1 z=13359.7144 y=299.6 By=$mc6db rotation=z90,x-1.15 fieldMaterial=Vacuum
+
+place Det rename=Det4 z=16711.9-3048/2-$det_space y=361.8 rotation=x-0.99 format=ascii file=4_$first.txt
+place 4Q120 rename=Q2 z=16711.9 y=361.8 rotation=x-0.99 gradient=$mc6Q2g fieldMaterial=Vacuum
+
+place Det rename=Det5 z=20063.4-3048/2-$det_space y=414.8328 rotation=x-0.8194 format=ascii file=5_$first.txt
+place EPB rename=MC6D2 z=20064.4 y=414.8328 By=$mc6db rotation=z90,x-0.8194 fieldMaterial=Vacuum
+place Det rename=Det6 z=20063.4+3048/2+$det_space y=414.8328 rotation=x-0.65 format=ascii file=6_$first.txt
+
+group Scraper1
+  box Scrap_Steel_Side height=50.799 width=441.299 length=997 color=$scraperColor material=STAINLESS-STEEL kill=$kill_aperture
+  box Scrap_Steel_Bottom height=25.399 width=914.4 length=997 color=$scraperColor material=STAINLESS-STEEL kill=$kill_aperture
+  box Scrap_Steel_Top height=203.199 width=914.4 length=997 color=$scraperColor material=STAINLESS-STEEL kill=$kill_aperture
+  box Scrap_ConcrUp height=914.4 width=914.4 length=997 color=$scraperColor material=CONCRETE kill=$kill_aperture
+  box Scrap_ConcrDown height=1828.8 width=914.4 length=997 color=$scraperColor material=CONCRETE kill=$kill_aperture
+  place Scrap_Steel_Side rename=+_steel_left x=236.5499 z=498.5
+  place Scrap_Steel_Side rename=+_steel_right x=-236.5499 z=498.5
+  place Scrap_Steel_Top  rename=+=steel_top y=127 z=498.5
+  place Scrap_Steel_Bottom  rename=+=steel_bottom y=-38.1 z=498.5
+  place Scrap_ConcrUp rename=+_concrete_up y=685.8 z=498.5
+  place Scrap_ConcrDown rename=+_concrete_down y=-965.2 z=498.5
+endgroup
+place Scraper1 rename=Scraper1 y=445.9224 z=22393.072 rotation=x-0.65
+#----------------
+
+place Det rename=Det7 z=24721.744-3048/2-$det_space y=472.745 rotation=x-0.653 format=ascii file=7_$first.txt
+place 3Q120 rename=Q3 z=24721.744 y=472.745 rotation=x-0.653 gradient=$mc6Q3g
+
+place Det rename=Det8 z=26931.24-762/2-$det_space y=499.871 rotation=x-0.917 format=ascii file=8_$first.txt
+place 4430 rename=VT1 z=26931.24 y=499.871 By=0 rotation=z90,x-0.917
+place Det rename=Det9 z=27998.04-762/2-$det_space y=515.417 rotation=x-0.917 format=ascii file=9_$first.txt
+place 4430 rename=HT1 z=27998.04 y=515.417 rotation=x-0.917 By=0
+
+#---Scraper2----
+group Scraper2
+  box Scrap2_Steel height=101.6 width=457.2 length=1003.4 color=$scraperColor material=STAINLESS-STEEL kill=$kill_aperture
+  box Scrap2_ConcrUp height=914.4 width=914.4 length=1003.4 color=$scraperColor material=CONCRETE kill=$kill_aperture
+  box Scrap2_ConcrDown height=1828.8 width=914.4 length=1003.4 color=$scraperColor material=CONCRETE kill=$kill_aperture
+  place Scrap2_Steel rename=+_steel_left x=279.4 z=501.7
+  place Scrap2_Steel rename=+_steel_right x=-279.4 z=501.7
+  place Scrap2_ConcrUp rename=+_concrete_up y=508. z=501.7
+  place Scrap2_ConcrDown rename=+_concrete_down y=-965.2 z=501.7
+endgroup
+place Det rename=Det10 z=29236.4166-700 y=529.6234 rotation=x-0.66 format=ascii file=10_$first.txt
+place Scraper2 rename=Scraper2 y=529.6234 z=29236.4166 rotation=x-0.66
+#----------------
+
+place Det rename=Det11 z=33049.7944-1676.4/2-$det_space y=568.15 rotation=x-0.656 format=ascii file=11_$first.txt
+place Mom_Coll z=33049.7944 y=568.15 rotation=x-0.656
+place Det rename=Det12 z=33049.7944+1676.4/2+$det_space y=568.15 rotation=x-0.66 format=ascii file=12_$first.txt
+
+#---Scraper3----
+group Scraper3
+  box Scrap3_Steel height=50.8 width=457.2 length=1003.4 color=$scraperColor material=STAINLESS-STEEL kill=$kill_aperture
+  box Scrap3_ConcrUp height=914.4 width=914.4 length=1003.4 color=$scraperColor material=CONCRETE kill=$kill_aperture
+  box Scrap3_ConcrDown height=1828.8 width=914.4 length=1003.4 color=$scraperColor material=CONCRETE kill=$kill_aperture
+  place Scrap3_Steel rename=+_steel_left x=254 z=501.7
+  place Scrap3_Steel rename=+_steel_right x=-254 z=501.7
+  place Scrap3_ConcrUp rename=+_concrete_up y=482.6 z=501.7
+  place Scrap3_ConcrDown rename=+_concrete_down y=-939.8 z=501.7
+endgroup
+place Scraper3 rename=Scraper3 y=568.15 z=33048.7944 rotation=x-0.66
+#----------------
+
+place Det rename=Det13 z=36831.7784-762/2-$det_space y=610.2096 rotation=x-0.917 format=ascii file=13_$first.txt
+place 4430 rename=VT2 z=36831.7784 y=610.2096 By=0 rotation=z90,x-0.664 kill=$kill_aperture
+place Det rename=Det14 z=37798.5784-700/2-$det_space y=622.7064 rotation=x-0.917 format=ascii file=14_$first.txt
+place 4430 rename=HT2 z=37798.5784 y=622.7064 rotation=x-0.665 By=0 kill=$kill_aperture
+place Det rename=Det15 z=40008.38-3048/2-$det_space y=648.0048 rotation=x-0.917 format=ascii file=15_$first.txt
+place 3Q120 rename=Q4 z=40008.38 y=648.0048 rotation=x-0.659 gradient=$mc6Q4g
+place Det rename=Det16 z=43360.88-3048/2-$det_space y=681.8376 rotation=x-0.917 format=ascii file=16_$first.txt
+place EPB rename=MC6D3 z=43360.88 y=681.8376 By=$mc6db rotation=z90,x-0.4927
+place Det rename=Det17 z=46713.67-3048/2-$det_space y=705.612 rotation=x-0.917 format=ascii file=17_$first.txt
+place 4Q120 rename=Q5 z=46713.67 y=705.612 rotation=x-0.327 gradient=$mc6Q5g
+place Det rename=Det18 z=50066.48-3048/2-$det_space y=720.5472 rotation=x-0.917 format=ascii file=18_$first.txt
+place EPB rename=MC6D4 z=50066.48 y=720.5472 By=$mc6db rotation=z90,x-0.166
+place Det rename=Det19 z=53419.28-3048/2-$det_space y=724.8144 rotation=x-0.917 format=ascii file=19_$first.txt
+place 3Q120 rename=Q6 z=53419.28 y=724.8144 gradient=$mc6Q6g
+
+box CollV height=4572 width=1800 length=1800 color=0,1,0  material=CONCRETE kill=$kill_aperture
+place CollV z=58000 x=1204.8 y=724.8
+place CollV z=58000 x=-1204.8 y=724.8
+
+box CollH height=1800 width=609.6 length=1800 color=0,1,0  material=CONCRETE kill=$kill_aperture
+place CollH z=58000 y=1929.6
+place CollH z=58000 y=-480
+
+genericquad HeTube gradient=0 fringe=0 apertureRadius=6*$inch ironRadius=6*$inch+1 fieldMaterial=He ironColor=0,0.8,0
+param He_length=45500.0
+place HeTube fieldLength=$He_length ironLength=$He_length z=62000+0.5*$He_length y=724.8144
+
+place Det rename=Det20 x=0 y=$translatey z=59000 format=ascii file=20_$first.txt
+
+#----------------------MC7-----------------------------------------
+
+# NOvA TB target
+box slab height=31.75 length=209.55 width=6.35 material=Cu color=1,0.01,0.01
+
+place slab rename=target_slab_-2 x=-13.0934206 y=-3.6025581999999994+$translatey z=44.287206+$translatez
+place slab rename=target_slab_-1 x=-6.743420599999999 y=-3.6025581999999994+$translatey z=22.142205999999998+$translatez
+place slab rename=target_slab_0 x=-0.39342059999999995 y=-3.6025581999999994+$translatey z=-0.002794+$translatez
+place slab rename=target_slab_1 x=5.9565794 y=-3.6025581999999994+$translatey z=-22.147794+$translatez
+place slab rename=target_slab_2 x=12.306579399999999 y=-3.6025581999999994+$translatey z=-44.292794+$translatez
+
+extrusion aperture_plate_1 length=50.8 vertices=0,0;-229.10799999999998,0.0;-503.45339999999993,1085.723;0.0,1085.723 material=Fe color=0,1,1 kill=0
+place aperture_plate_1 rename=aperture_plate_1 x=209.80399999999997 y=-0.35559999999999997+$translatey z=195.42759999999998+$translatez rotation=x90
+
+extrusion aperture_plate_2 length=50.8 vertices=0,0;-509.77799999999996,0.0;-509.77799999999996,1085.723;-352.8314,1085.723 material=Fe color=0,1,1 kill=0
+place aperture_plate_2 rename=aperture_plate_2 x=-93.21799999999999 y=-0.35559999999999997+$translatey z=195.42759999999998+$translatez rotation=x90
+
+box collimator_base height=131.826 length=1473.1999999999998 width=812.8 material=Fe color=0,1,1 kill=0
+box collimator_plate height=131.826 length=1085.723 width=812.8 material=Fe color=0,1,1 kill=0
+place collimator_base rename=collimator_base x=-196.596 y=-223.49460000000002+$translatey z=544.5505999999999+$translatez
+place collimator_plate rename=collimator_bottom x=-196.596 y=-91.6686+$translatey z=738.2891+$translatez
+place collimator_plate rename=collimator_top_1 x=-196.596 y=90.9574+$translatey z=738.2891+$translatez
+place collimator_plate rename=collimator_top_2 x=-196.596 y=222.7834+$translatey z=738.2891+$translatez
+
+group wire_chamber
+  detector wire_chamber_detector height=128.0 length=25.0 width=128.0 material=Ar color=0,1,0
+  box wire_chamber_frame_vertical height=254.0 length=25.0 width=63.0 color=1,0,1 kill=0 material=Al
+  box wire_chamber_frame_horizontal height=63.0 length=25.0 width=128.0 color=1,0,1 kill=0 material=Al
+  place wire_chamber_frame_vertical rename=+_frame_left x=-95.5 y=0.0 z=12.5
+  place wire_chamber_frame_vertical rename=+_frame_right x=95.5 y=0.0 z=12.5
+  place wire_chamber_frame_horizontal rename=+_frame_top x=0.0 y=95.5 z=12.5
+  place wire_chamber_frame_horizontal rename=+_frame_bottom x=0.0 y=-95.5 z=12.5
+  place wire_chamber_detector rename=+_detector x=0.0 y=0.0 z=12.5
+endgroup
+
+place wire_chamber rename=wire_chamber_1 x=-455.74168439999994 y=0.5353557999999999+$translatey z=1591.0148774+$translatez rotation=y-16.0
+place Det rename=tbwc1 x=0 y=$translatey z=1540+$translatez format=ascii file=21_$first.txt
+place wire_chamber rename=wire_chamber_2 x=-859.9917013999999 y=0.9007093999999999+$translatey z=2998.8696944+$translatez rotation=y-16.0
+place Det rename=tbwc2 x=0 y=$translatey z=2950+$translatez format=ascii file=22_$first.txt
+place wire_chamber rename=wire_chamber_3 x=-1352.8517012 y=0.0741172+$translatey z=7369.4469578+$translatez rotation=y0.0
+place Det rename=tbwc3 x=0 y=$translatey z=7340+$translatez format=ascii file=23_$first.txt
+place wire_chamber rename=wire_chamber_4 x=-1353.8649072 y=0.3144012+$translatey z=10143.3251286+$translatez rotation=y0.0
+place Det rename=tbwc4 x=0 y=$translatey z=10120+$translatez format=ascii file=24_$first.txt
+
+tubs mylar_window radius=76.19999999999999 length=0.0762 color=0,0.8,0 material=MYLAR
+
+group helium_pipe_1
+  tubs helium radius=73.81875 length=750.0744365285254 color=1,1,1 material=He
+  tubs helium_pipe innerRadius=73.81875 outerRadius=76.19999999999999 length=750.0744365285254 color=0,0.8,0 material=STAINLESS-STEEL kill=0
+  place helium_pipe rename=helium_pipe x=0.0 y=0.0 z=375.1134182642627
+  place helium rename=helium x=0.0 y=0.0 z=375.1134182642627
+  place mylar_window rename=mylar_window_up x=0.0 y=0.0 z=0.03809999999998581
+  place mylar_window rename=mylar_window_down x=0.0 y=0.0 z=750.1887365285254
+endgroup
+
+place helium_pipe_1 rename=helium_pipe_1 x=-696.7411769999999 y=1.3859509999999997+$translatey z=2426.3319011999997+$translatez rotation=y-16.0
+
+group helium_pipe_2
+  tubs helium radius=73.81875 length=1187.9725689575212 color=1,1,1 material=He
+  tubs helium_pipe innerRadius=73.81875 outerRadius=76.19999999999999 length=1187.9725689575212 color=0,0.8,0 material=STAINLESS-STEEL kill=0
+  place helium_pipe rename=helium_pipe x=0.0 y=0.0 z=594.0624844787606
+  place helium rename=helium x=0.0 y=0.0 z=594.0624844787606
+  place mylar_window rename=mylar_window_up x=0.0 y=0.0 z=0.03809999999998581
+  place mylar_window rename=mylar_window_down x=0.0 y=0.0 z=1188.0868689575211
+endgroup
+
+place helium_pipe_2 rename=helium_pipe_2 x=-1352.2426854 y=-0.924179+$translatey z=6561.330451099999+$translatez rotation=y0.0
+
+group helium_pipe_3
+  tubs helium radius=73.81875 length=1095.5360995754197 color=1,1,1 material=He
+  tubs helium_pipe innerRadius=73.81875 outerRadius=76.19999999999999 length=1095.5360995754197 color=0,0.8,0 material=STAINLESS-STEEL kill=0
+  place helium_pipe rename=helium_pipe x=0.0 y=0.0 z=547.8442497877098
+  place helium rename=helium x=0.0 y=0.0 z=547.8442497877098
+  place mylar_window rename=mylar_window_up x=0.0 y=0.0 z=0.03809999999998581
+  place mylar_window rename=mylar_window_down x=0.0 y=0.0 z=1095.6503995754197
+endgroup
+
+place helium_pipe_3 rename=helium_pipe_3 x=-1353.7202034 y=0.24902159999999998+$translatey z=8168.459774299999+$translatez rotation=y0.0
+
+group helium_pipe_4
+  tubs helium radius=73.81875 length=644.01161083749 color=1,1,1 material=He
+  tubs helium_pipe innerRadius=73.81875 outerRadius=76.19999999999999 length=644.01161083749 color=0,0.8,0 material=STAINLESS-STEEL kill=0
+  place helium_pipe rename=helium_pipe x=0.0 y=0.0 z=322.082005418745
+  place helium rename=helium x=0.0 y=0.0 z=322.082005418745
+  place mylar_window rename=mylar_window_up x=0.0 y=0.0 z=0.03809999999998581
+  place mylar_window rename=mylar_window_down x=0.0 y=0.0 z=644.12591083749
+endgroup
+
+place helium_pipe_4 rename=helium_pipe_4 x=-1351.1858548999999 y=-1.0659237+$translatey z=10775.0757574+$translatez rotation=y0.0
+
+genericbend M1 fieldHeight=88.89999999999999 fieldLength=1066.8 fieldWidth=450.84999999999997 kill=0 ironColor=1,0,0 ironHeight=762.0 ironLength=1066.8 ironWidth=1270.0
+
+place M1 By=$b_field x=-1279.1714319999999 y=-0.2624836+$translatey z=4730.6773052+$translatez rotation=Y-8.0
+
+group collimator_ds
+  box collimator_ds_bottom height=200.02499999999998 length=914.4 width=711.1999999999999 material=Fe color=0,1,1 kill=0
+  box collimator_ds_middle height=209.54999999999998 length=914.4 width=276.22499999999997 material=Fe color=0,1,1 kill=0
+  place collimator_ds_middle rename=+_middle_1 x=217.48749999999998 y=0.0 z=457.2
+  place collimator_ds_middle rename=+_middle_2 x=-217.48749999999998 y=0.0 z=457.2
+  place collimator_ds_bottom rename=+_bottom x=0.0 y=204.78749999999997 z=457.2
+  place collimator_ds_bottom rename=+_top x=0.0 y=-204.78749999999997 z=457.2
+endgroup
+
+place collimator_ds x=-1359.5900164 y=-3.4117534+$translatey z=9397.989332+$translatez rotation=y0.0
+
+detector tof_us  height=150.114 length=20.066 width=150.114 material=LUCITE color=0,0,1
+place tof_us rename=tof_us x=-385.4883832 y=7.490510799999999+$translatey z=1375.6054022+$translatez rotation=y-16.0
+
+detector tof_ds height=150.114 length=6.095999999999999 width=150.114 material=LUCITE color=0,0,1
+place tof_ds rename=tof_ds x=-1357.8250466 y=3.3355534+$translatey z=14415.290448+$translatez rotation=y0.0
+
+detector tof_ds_sipm height=150.114 length=13.208 width=150.114 material=LUCITE color=0,0,1
+place tof_ds_sipm rename=tof_ds_sipm x=-1353.4397366 y=-0.503682+$translatey z=14553.5490488+$translatez rotation=y0.0
+
+detector cherenkov radius=157.5 length=2925.572 color=1,1,1 material=CARBON_DIOXIDE
+tubs cherenkov_pipe innerRadius=157.5 outerRadius=162.0 length=2925.572 color=0.74,0.34,0.09 material=STAINLESS-STEEL
+tubs cherenkov_pipe_pmt innerRadius=132.0 outerRadius=136.5 length=684.0 color=0.74,0.34,0.09 material=STAINLESS-STEEL
+box cherenkov_support height=1371.6000000000001 length=1828.8000000000002 width=914.4000000000001 material=CONCRETE color=0,1,1 kill=0
+
+place cherenkov rename=cherenkov x=-1353.6168 y=1.1176+$translatey z=12819.735599999998+$translatez rotation=y0.0
+place cherenkov_pipe rename=cherenkov_pipe x=-1353.6168 y=1.1176+$translatey z=12819.735599999998+$translatez rotation=y0.0 kill=0
+place cherenkov_pipe_pmt rename=cherenkov_pipe_pmt x=-1353.6168 y=-502.88239999999996+$translatey z=14101.571599999997+$translatez rotation=y0.0,x90 kill=0
+place cherenkov_support x=-1353.6168 y=-1002.2574000000001+$translatey z=12363.424599999998+$translatez rotation=y0.0
+
+tubs tedlar_window radius=162.0 length=0.044449999999999996 color=0.74,0.34,0.09 material=POLYVINYL_CHLORIDE
+tubs vinyl_window radius=162.0 length=0.1524 color=0.74,0.34,0.09 material=POLYVINYL_CHLORIDE
+place tedlar_window rename=tedlar_window_up x=-1353.6168 y=1.1176+$translatey z=11356.927374999997+$translatez
+place tedlar_window rename=tedlar_window_down x=-1353.6168 y=1.1176+$translatey z=14282.543824999999+$translatez
+place vinyl_window rename=vinyl_window_up x=-1353.6168 y=1.1176+$translatey z=11356.82895+$translatez
+place vinyl_window rename=vinyl_window_down x=-1353.6168 y=1.1176+$translatey z=14282.642249999997+$translatez
+
+detector nova height=3038.3356249999997 length=1.0 width=3038.3356249999997 material=POLYVINYL_CHLORIDE color=0.8,0.8,0.8
+place nova rename=nova x=-1374.4731770833332 y=76.1231770833333+$translatey z=14617.377049180326+$translatez rotation=y-0.3492962692141463,z0.8032983167050841
+
+group shielding_block
+  box shielding_block_steel height=609.5999999999999 length=406.4 width=609.5999999999999 material=Fe color=0,1,1 kill=0
+  box shielding_block_cement height=609.5999999999999 length=406.4 width=609.5999999999999 material=CONCRETE color=0,1,1 kill=0
+  box shielding_block_concrete_bottom height=304.79999999999995 length=812.8 width=609.5999999999999 material=CONCRETE color=0,1,1 kill=0
+  box shielding_block_concrete_top height=101.6 length=812.8 width=609.5999999999999 material=CONCRETE color=0,1,1 kill=0
+  place shielding_block_steel x=0.0 y=0.0 z=203.2
+  place shielding_block_cement x=0.0 y=0.0 z=609.5999999999999
+  place shielding_block_concrete_bottom x=0.0 y=-457.19999999999993 z=406.4
+  place shielding_block_concrete_top x=0.0 y=355.59999999999997 z=406.4
+endgroup
+
+place shielding_block rename=shielding_block_1 x=2.1762973999999997 y=126.42984619999999+$translatey z=3766.2666102+$translatez rotation=y0.0
+place shielding_block rename=shielding_block_2 x=-894.5494935999999 y=139.3662948+$translatey z=6667.4537973999995+$translatez rotation=y0.0
+place shielding_block rename=shielding_block_3 x=-1819.981247 y=131.68050879999998+$translatey z=6648.8942713999995+$translatez rotation=y0.0
+
+virtualdetector NovaDetector width=3038.3356249999997 height=3038.3356249999997 length=1 color=0,0,0
+place NovaDetector rename=FrontFace x=-1374.4731770833332 y=76.1231770833333+$translatey z=14580+$translatez format=ascii file=25_$first.txt

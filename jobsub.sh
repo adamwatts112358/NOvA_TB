@@ -1,0 +1,1 @@
+jobsub_submit  --resource-provides=usage_model=OPPORTUNISTIC --expected-lifetime=2h --disk=4GB -G ebd -N 50 file://run_g4bl.sh
