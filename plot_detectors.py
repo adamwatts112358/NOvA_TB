@@ -4,6 +4,8 @@ from os import listdir
 import sys
 
 def plotDet(name, ymean, plotlim):
+    det_name = name.strip('_0.txt')
+    print("Plotting detector {}".format(det_name))
     filename = './'+name
     pdgID = []
     x = []
@@ -82,13 +84,18 @@ def plotDet(name, ymean, plotlim):
     mom_bins = 200
     bgcolor = '#FFFFFF' # '#e0e0eb' or '#F2F2F2'
     
+    if '26' in det_name:
+        xmean = -1374.4731770833332
+    else:
+        xmean = 0.0
+    
     # Protons
     plt.subplot2grid((6,6), (0,0), rowspan=2, colspan=2)
     plt.title('protons: %.2e'%(len(protonx)))
     plt.scatter(protonx,protony,c=proton_p,marker='o',s=markersize,lw=0,label='protons',alpha=alpha,cmap=colormap)
     plt.xlabel('x [mm]')
     plt.ylabel('y [mm]')
-    plt.xlim(-plotlim,plotlim)
+    plt.xlim(xmean-plotlim, xmean+plotlim)
     plt.ylim(ymean-plotlim,ymean+plotlim)
     plt.colorbar()
     plt.gca().set_facecolor(bgcolor)
@@ -106,7 +113,7 @@ def plotDet(name, ymean, plotlim):
     plt.scatter(p_pionx,p_piony,c=p_pion_p,marker='o',s=markersize,lw=0,label='pi+',alpha=alpha,cmap=colormap)
     plt.xlabel('x [mm]')
     plt.ylabel('y [mm]')
-    plt.xlim(-plotlim,plotlim)
+    plt.xlim(xmean-plotlim, xmean+plotlim)
     plt.ylim(ymean-plotlim,ymean+plotlim)
     plt.colorbar()
     plt.gca().set_facecolor(bgcolor)
@@ -124,7 +131,7 @@ def plotDet(name, ymean, plotlim):
     plt.scatter(n_pionx,n_piony,c=n_pion_p,marker='o',s=markersize,lw=0,label='pi-',alpha=alpha,cmap=colormap)
     plt.xlabel('x [mm]')
     plt.ylabel('y [mm]')
-    plt.xlim(-plotlim,plotlim)
+    plt.xlim(xmean-plotlim, xmean+plotlim)
     plt.ylim(ymean-plotlim,ymean+plotlim)
     plt.colorbar()
     plt.gca().set_facecolor(bgcolor)
@@ -142,7 +149,7 @@ def plotDet(name, ymean, plotlim):
     plt.scatter(p_muonx,p_muony,c=p_muon_p,marker='o',s=markersize,lw=0,label='mu+',alpha=alpha,cmap=colormap)
     plt.xlabel('x [mm]')
     plt.ylabel('y [mm]')
-    plt.xlim(-plotlim,plotlim)
+    plt.xlim(xmean-plotlim, xmean+plotlim)
     plt.ylim(ymean-plotlim,ymean+plotlim)
     plt.colorbar()
     plt.gca().set_facecolor(bgcolor)
@@ -160,7 +167,7 @@ def plotDet(name, ymean, plotlim):
     plt.scatter(n_muonx,n_muony,c=n_muon_p,marker='o',s=markersize,lw=0,label='mu-',alpha=alpha,cmap=colormap)
     plt.xlabel('x [mm]')
     plt.ylabel('y [mm]')
-    plt.xlim(-plotlim,plotlim)
+    plt.xlim(xmean-plotlim, xmean+plotlim)
     plt.ylim(ymean-plotlim,ymean+plotlim)
     plt.colorbar()
     plt.gca().set_facecolor(bgcolor)
@@ -183,8 +190,6 @@ def plotDet(name, ymean, plotlim):
     p_muons = len(p_muonx)
     n_muons = len(n_muonx)
 
-n_detectors = 26
-
 protons_array = []
 p_pions_array = []
 n_pions_array = []
@@ -195,7 +200,6 @@ y_array = np.asarray([147.5, 224.3, 299.6, 361.8, 414.8328, 414.8328, 472.745, 4
 plotlim_array = [2.0E2,2.0E2,2.0E2,2.0E2,2.0E2,2.0E2,2.0E2,2.0E2,2.0E2,2.0E2,2.0E2,2.0E2,2.0E2,2.0E2,2.0E2,2.0E2,2.0E2,2.0E2,2.0E2,2.0E2,2.0E3,2.0E3,2.0E3,2.0E3,2.0E3,2.0E3]
 
 
-for i in range(20,27):
-    print("Plotting detector {}".format(i))
+for i in range(21,27):
     filename = '{}_0.txt'.format(i)
     plotDet('{}'.format(filename), y_array[i-1], plotlim_array[i-1])

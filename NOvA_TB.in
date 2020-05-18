@@ -62,15 +62,16 @@ trackcuts kineticEnergyCut=1000.0 keep=proton,mu+,mu-,pi+,pi-,kaon+,kaon-
 
 virtualdetector Det width=4400 height=4400 length=1 color=0,0,0
 
-param floor=-1200
+param floor=-1280
 # Define common shielding blocks
-box A_block  width=3*$ft height=1.5*$ft length=6*$ft material=CONCRETE color=0.6,0.6,0.6 kill=$kill_aperture
+box A_block  width=3*$ft height=1.5*$ft length=7.5*$ft material=CONCRETE color=0.6,0.6,0.6 kill=$kill_aperture
 box B_block  width=3*$ft height=3*$ft length=7.5*$ft material=CONCRETE color=0.6,0.6,0.6 kill=$kill_aperture
 box C_block  width=3*$ft height=3*$ft length=6*$ft material=CONCRETE color=0.6,0.6,0.6 kill=$kill_aperture
 box D_block  width=3*$ft height=1.5*$ft length=6*$ft material=CONCRETE color=0.6,0.6,0.6 kill=$kill_aperture
 box E_block  width=3*$ft height=1.5*$ft length=3*$ft material=CONCRETE color=0.6,0.6,0.6 kill=$kill_aperture
 box K_block  width=3*$ft height=1*$ft length=3*$ft material=CONCRETE color=0.6,0.6,0.6 kill=$kill_aperture
 box F_block  width=1.5*$ft height=1.5*$ft length=3*$ft material=CONCRETE color=0.6,0.6,0.6 kill=$kill_aperture
+box H_block  width=3*$ft height=1.5*$ft length=16*$ft material=CONCRETE color=0.6,0.6,0.6 kill=$kill_aperture
 box J_block  width=3*$ft height=1.5*$ft length=12*$ft material=CONCRETE color=0.6,0.6,0.6 kill=$kill_aperture
 box L_block  width=1.5*$ft height=1*$ft length=3*$ft material=CONCRETE color=0.6,0.6,0.6 kill=$kill_aperture
 box M_block  width=1.5*$ft height=1.5*$ft length=1.5*$ft material=CONCRETE color=0.6,0.6,0.6 kill=$kill_aperture
@@ -79,11 +80,11 @@ box M_block  width=1.5*$ft height=1.5*$ft length=1.5*$ft material=CONCRETE color
 box Target  width=5 height=5 length=200 material=Cu color=1.0,0.75,0.0
 place Target rename=MC6T1 z=100 rotation=x-1.31
 
-box CageV height=450 width=100  length=2133.6 color=0.8,0,0 material=STAINLESS-STEEL kill=$kill_aperture
+box CageV height=450 width=100  length=2133.6 color=0.8,0,0 material=Fe kill=$kill_aperture
 place CageV z=1016.5 x=-150 y=24.1 rotation=x-1.31
 place CageV z=1016.5 x=+150 y=24.1 rotation=x-1.31
 
-box CageH height=100  width=400 length=2133.6 color=0.8,0,0  material=STAINLESS-STEEL kill=$kill_aperture
+box CageH height=100  width=400 length=2133.6 color=0.8,0,0  material=Fe kill=$kill_aperture
 place CageH z=1016.5 y=-251.9-0.25 rotation=x-1.31
 place CageH z=1016.5 y=299.17+0.25 rotation=x-1.31
 
@@ -95,7 +96,7 @@ box AbsH height=212.3 width=$inch length=5.1888*$ft color=0.6,0.6,0.6  material=
 place AbsH z=1293.9 y=148.45 rotation=x-1.31
 place AbsH z=1293.9 y=-89.25 rotation=x-1.31
 
-box Coll_All height=31.75 width=431.8 length=1828.8 color=0.8,0,0 material=STAINLESS-STEEL kill=$kill_aperture
+box Coll_All height=31.75 width=431.8 length=1828.8 color=0.8,0,0 material=Fe kill=$kill_aperture
 box Coll_Concr height=914.4 width=914.4 length=1828.8 color=0.6,0.6,0.6 material=CONCRETE kill=$kill_aperture
 place Coll_All z=3148 x=241.3 y=71.95 rotation=x-0.99
 place Coll_All z=3148 x=-241.3 y=71.95 rotation=x-0.99
@@ -177,9 +178,9 @@ place EPB rename=MC6D2 z=20064.4 y=414.8328 By=$mc6db rotation=z90,x-0.8194 fiel
 #place Det rename=Det6 z=20063.4+3048/2+$det_space y=414.8328 rotation=x-0.65 format=ascii file=6_$first.txt
 
 group Scraper1
-  box Scrap_Steel_Side height=50.799 width=441.299 length=997 color=$scraperColor material=STAINLESS-STEEL kill=$kill_aperture
-  box Scrap_Steel_Bottom height=25.399 width=914.4 length=997 color=$scraperColor material=STAINLESS-STEEL kill=$kill_aperture
-  box Scrap_Steel_Top height=203.199 width=914.4 length=997 color=$scraperColor material=STAINLESS-STEEL kill=$kill_aperture
+  box Scrap_Steel_Side height=50.799 width=441.299 length=997 color=$scraperColor material=Fe kill=$kill_aperture
+  box Scrap_Steel_Bottom height=25.399 width=914.4 length=997 color=$scraperColor material=Fe kill=$kill_aperture
+  box Scrap_Steel_Top height=203.199 width=914.4 length=997 color=$scraperColor material=Fe kill=$kill_aperture
   box Scrap_ConcrUp height=914.4 width=914.4 length=997 color=0.6,0.6,0.6 material=CONCRETE kill=$kill_aperture
   box Scrap_ConcrDown height=1828.8-9.5*$inch width=914.4 length=997 color=0.6,0.6,0.6 material=CONCRETE kill=$kill_aperture
   place Scrap_Steel_Side rename=+_steel_left x=236.5499 z=498.5
@@ -205,7 +206,7 @@ place D_block z=27998.04-762/2-$det_space y=$floor+0.5*3.0*$ft+2.25*$ft
 
 #---Scraper2----
 group Scraper2
-  box Scrap2_Steel height=101.6 width=457.2 length=1003.4 color=$scraperColor material=STAINLESS-STEEL kill=$kill_aperture
+  box Scrap2_Steel height=101.6 width=457.2 length=1003.4 color=$scraperColor material=Fe kill=$kill_aperture
   box Scrap2_ConcrUp height=914.4 width=914.4 length=1003.4 color=0.6,0.6,0.6 material=CONCRETE kill=$kill_aperture
   box Scrap2_ConcrDown height=1828.8-6*$inch width=914.4 length=1003.4 color=0.6,0.6,0.6 material=CONCRETE kill=$kill_aperture
   place Scrap2_Steel rename=+_steel_left x=279.4 z=501.7
@@ -249,10 +250,9 @@ place C_block z=$mom_coll_z+1.5*$ft y=$floor+1.5*$ft rotation=y-90
 place D_block z=$mom_coll_z+1.5*$ft y=$floor+3.75*$ft rotation=y-90
 #---------------- 
 
-
 #---Scraper3----
 group Scraper3
-  box Scrap3_Steel height=50.8 width=457.2 length=1003.4 color=$scraperColor material=STAINLESS-STEEL kill=$kill_aperture
+  box Scrap3_Steel height=50.8 width=457.2 length=1003.4 color=$scraperColor material=Fe kill=$kill_aperture
   box Scrap3_ConcrUp height=914.4 width=914.4 length=1003.4 color=0.6,0.6,0.6 material=CONCRETE kill=$kill_aperture
   box Scrap3_ConcrDown height=6*$ft-3.5*$inch width=914.4 length=1003.4 color=0.6,0.6,0.6 material=CONCRETE kill=$kill_aperture
   place Scrap3_Steel rename=+_steel_left x=254 z=501.7
@@ -287,15 +287,14 @@ place B_block z=53419.28-1.5*$ft y=$floor+$ds_floor_height+0.5*3.0*$ft
 place L_block z=53419.28 y=$floor+0.5*$ft
 place L_block z=53419.28 y=$floor+1.5*$ft
 
-box CollV height=10.5*$ft width=1800 length=1800 color=0.6,0.6,0.6  material=CONCRETE kill=$kill_aperture
-place CollV z=58000 x=1204.8 y=$floor+0.5*10.5*$ft
-place CollV z=58000 x=-1204.8 y=$floor+0.5*10.5*$ft
+#box CollV height=10.5*$ft width=1800 length=1800 color=0.6,0.6,0.6  material=CONCRETE kill=$kill_aperture
+#place CollV z=58000 x=1204.8 y=$floor+0.5*10.5*$ft
+#place CollV z=58000 x=-1204.8 y=$floor+0.5*10.5*$ft
 
-box CollH_lower height=1800 width=609.6 length=1800 color=0.6,0.6,0.6  material=CONCRETE kill=$kill_aperture
-place CollH_lower z=58000 y=-420+7.1*$inch
-box CollH_upper height=1800-1010 width=609.6 length=1800 color=0.6,0.6,0.6  material=CONCRETE kill=$kill_aperture
-place CollH_upper z=58000 y=1929.6+7.1*$inch-505
-
+#box CollH_lower height=1800 width=609.6 length=1800 color=0.6,0.6,0.6  material=CONCRETE kill=$kill_aperture
+#place CollH_lower z=58000 y=-420+7.1*$inch
+#box CollH_upper height=1800-1010 width=609.6 length=1800 color=0.6,0.6,0.6  material=CONCRETE kill=$kill_aperture
+#place CollH_upper z=58000 y=1929.6+7.1*$inch-505
 
 genericquad HeTube gradient=0 fringe=0 apertureRadius=6*$inch ironRadius=6*$inch+1 fieldMaterial=He ironColor=0.6,0.6,0.6
 tubs mylar radius=6*$inch length=0.0762 color=0,0.8,0 material=MYLAR kill=$kill_aperture
@@ -304,14 +303,147 @@ place HeTube fieldLength=$He_length ironLength=$He_length z=62000+0.5*$He_length
 place mylar z=62000-2*0.0762 y=724.8144
 place mylar z=62000+$He_length+0.0762 y=724.8144
 
-place Det rename=Det20 x=0.0 y=$translatey+12.0*$inch z=59000 format=ascii file=20_$first.txt
+place Det rename=Det20 x=0.0 y=$translatey+20.0*$inch z=62000-1000 format=ascii file=20_$first.txt
 
-#----------------------MC7-----------------------------------------
+#------------Final scraper block in MC6---------------
+# Using DS end of Q6 as z reference
+param Q6_ds_z=53419.28+0.5*3048
+
+place C_block x=0.0 y=$floor+0.5*3*$ft z=$Q6_ds_z+35*$inch+0.5*6*$ft
+place D_block x=0.0 y=$floor+3*$ft+0.5*1.5*$ft z=$Q6_ds_z+35*$inch+0.5*6*$ft
+place F_block x=0.0 y=$floor+3*$ft+1.5*$ft+0.5*1.5*$ft z=$Q6_ds_z+35*$inch+6*$ft-0.5*1.5*$ft rotation=Y90
+
+param MC6_fscraper_z2=$Q6_ds_z+35*$inch+6*$ft+0.5*3*$ft
+place D_block x=0.0 y=$floor+0.5*6*$ft z=$MC6_fscraper_z2 rotation=Z90,X90
+place C_block x=(0.5*1.5*$ft+0.5*3*$ft) y=$floor+0.5*6*$ft z=$MC6_fscraper_z2 rotation=X90
+place C_block x=-(0.5*1.5*$ft+0.5*3*$ft) y=$floor+0.5*6*$ft z=$MC6_fscraper_z2 rotation=X90
+place E_block x=(0.5*1.5*$ft+0.5*3*$ft) y=$floor+6*$ft+0.5*1.5*$ft z=$MC6_fscraper_z2
+place E_block x=-(0.5*1.5*$ft+0.5*3*$ft) y=$floor+6*$ft+0.5*1.5*$ft z=$MC6_fscraper_z2
+place A_block x=0.0 y=$floor+6*$ft+1.5*$ft+0.5*1.5*$ft z=$MC6_fscraper_z2 rotation=Y90
+
+param MC6_fscraper_z3=$Q6_ds_z+35*$inch+6*$ft+1.5*3*$ft
+place D_block x=0.0 y=$floor+0.5*6*$ft z=$MC6_fscraper_z3 rotation=Z90,X90
+place C_block x=(0.5*1.5*$ft+0.5*3*$ft) y=$floor+0.5*6*$ft z=$MC6_fscraper_z3 rotation=X90
+place C_block x=-(0.5*1.5*$ft+0.5*3*$ft) y=$floor+0.5*6*$ft z=$MC6_fscraper_z3 rotation=X90
+place E_block x=(0.5*1.5*$ft+0.5*3*$ft) y=$floor+6*$ft+0.5*1.5*$ft z=$MC6_fscraper_z3
+place E_block x=-(0.5*1.5*$ft+0.5*3*$ft) y=$floor+6*$ft+0.5*1.5*$ft z=$MC6_fscraper_z3
+place A_block x=0.0 y=$floor+6*$ft+1.5*$ft+0.5*1.5*$ft z=$MC6_fscraper_z3 rotation=Y90
+
+#-----------------------------------------------------
+
+######------------MC7--------------------#######
+# center location of downstream pip holder H block
+param Hblock_z=$translatez-400-86*$inch-0.5*(60+19.5)*$inch-6183.788-127.5*$inch-8*$ft
+
+#--------------US pipe holder-------------
+# Reference will be the center of the main H block
+# Downstream end is about 246.75" from the upstream end of the next set of holder blocks
+# So center-to-center from US to DS sets is 246.75"+ H block length
+param US_pipe_holder_z=$Hblock_z-(246.75*$inch+16*$ft)
+
+place H_block z=$US_pipe_holder_z x=0.0 y=$floor+0.5*1.5*$ft+2*1.5*$ft
+place E_block z=$US_pipe_holder_z+0.5*16*$ft-0.5*3*$ft-7*$inch x=0.0 y=$floor+0.5*1.5*$ft
+place E_block z=$US_pipe_holder_z+0.5*16*$ft-0.5*3*$ft-7*$inch x=0.0 y=$floor+1.5*1.5*$ft
+place E_block z=$US_pipe_holder_z-0.5*16*$ft+0.5*3*$ft+8*$inch x=0.0 y=$floor+0.5*1.5*$ft
+place E_block z=$US_pipe_holder_z-0.5*16*$ft+0.5*3*$ft+8*$inch x=0.0 y=$floor+1.5*1.5*$ft
+place F_block z=$US_pipe_holder_z+0.5*16*$ft-0.5*1.5*$ft x=0.0 y=$floor+1.5*$ft+2*1.5*$ft+0.5*1.5*$ft rotation=Y90
+place F_block z=$US_pipe_holder_z-0.5*16*$ft+0.5*1.5*$ft x=0.0 y=$floor+1.5*$ft+2*1.5*$ft+0.5*1.5*$ft rotation=Y90
+#-----------------------------------------
+
+#--------------LArIAT muon range stack--------
+# Z location is a complete guess. Need alignment data.
+param muon_stack_z=$US_pipe_holder_z-30*$ft
+place A_block x=-37*$inch y=$floor+0.5*1.5*$ft z=$muon_stack_z
+place C_block x=-37*$inch y=$floor+1.5*$ft+0.5*3*$ft z=$muon_stack_z-0.5*7.5*$ft+0.5*6*$ft
+
+param steel_gap=30
+box steel_2 height=25.5*$inch width=21*$inch length=20 material=Fe color=0.3,0.0,0.2 kill=$kill_aperture
+box steel_16 height=25.5*$inch width=21*$inch length=160 material=Fe  color=0.3,0.0,0.2 kill=$kill_aperture
+box steel_8 height=25.5*$inch width=21*$inch length=80 material=Fe  color=0.3,0.0,0.2 kill=$kill_aperture
+box steel_14 height=25.5*$inch width=21*$inch length=140 material=Fe  color=0.3,0.0,0.2 kill=$kill_aperture
+box steel_10 height=25.5*$inch width=21*$inch length=100 material=Fe  color=0.3,0.0,0.2 kill=$kill_aperture
+place steel_2 x=-37*$inch y=$floor+1.5*$ft+3*$ft+0.5*25.5*$inch z=$muon_stack_z-0.5*7.5*$ft+0.5*20
+place steel_2 x=-37*$inch y=$floor+1.5*$ft+3*$ft+0.5*25.5*$inch z=$muon_stack_z-0.5*7.5*$ft+0.5*20+$steel_gap+0.5*20
+place steel_16 x=-37*$inch y=$floor+1.5*$ft+3*$ft+0.5*25.5*$inch z=$muon_stack_z-0.5*7.5*$ft+40+2*$steel_gap+0.5*160
+place steel_8 x=-37*$inch y=$floor+1.5*$ft+3*$ft+0.5*25.5*$inch z=$muon_stack_z-0.5*7.5*$ft+200+3*$steel_gap+0.5*80
+place steel_8 x=-37*$inch y=$floor+1.5*$ft+3*$ft+0.5*25.5*$inch z=$muon_stack_z-0.5*7.5*$ft+200+4*$steel_gap+1.5*80
+place steel_8 x=-37*$inch y=$floor+1.5*$ft+3*$ft+0.5*25.5*$inch z=$muon_stack_z-0.5*7.5*$ft+200+5*$steel_gap+2.5*80
+place steel_8 x=-37*$inch y=$floor+1.5*$ft+3*$ft+0.5*25.5*$inch z=$muon_stack_z-0.5*7.5*$ft+200+6*$steel_gap+3.5*80
+place steel_8 x=-37*$inch y=$floor+1.5*$ft+3*$ft+0.5*25.5*$inch z=$muon_stack_z-0.5*7.5*$ft+200+7*$steel_gap+4.5*80
+place steel_8 x=-37*$inch y=$floor+1.5*$ft+3*$ft+0.5*25.5*$inch z=$muon_stack_z-0.5*7.5*$ft+200+8*$steel_gap+5.5*80
+place steel_14 x=-37*$inch y=$floor+1.5*$ft+3*$ft+0.5*25.5*$inch z=$muon_stack_z-0.5*7.5*$ft+200+6*80+9*$steel_gap+0.5*140
+place steel_10 x=-37*$inch y=$floor+1.5*$ft+3*$ft+0.5*25.5*$inch z=$muon_stack_z-0.5*7.5*$ft+200+6*80+10*$steel_gap+140+0.5*100
+
+#---------------------------------------------
+
+#--------------DS pipe holder-------------
+place H_block z=$Hblock_z x=0 y=$floor+0.5*1.5*$ft+2*$ft
+
+place K_block z=$Hblock_z+6*$ft-24.5*$inch x=0 y=$floor+0.5*$ft
+place K_block z=$Hblock_z+6*$ft-24.5*$inch x=0 y=$floor+1.5*$ft
+place K_block z=$Hblock_z-6*$ft+29.5*$inch-0.5*3*$ft x=0 y=$floor+0.5*$ft
+place K_block z=$Hblock_z-6*$ft+29.5*$inch-0.5*3*$ft x=0 y=$floor+1.5*$ft
+
+place L_block z=$Hblock_z-6*$ft x=0 y=$floor+1.5*$ft+2*$ft+0.5*$ft
+place L_block z=$Hblock_z-6*$ft x=0 y=$floor+1.5*$ft+2*$ft+1.5*$ft
+
+#-----------------------------------------
+
+#--------------JGG------------------------
+param JGG_z=$translatez-400-86*$inch-0.5*(60+19.5)*$inch-6183.788
+param JGG_y=$translatey
+param JGG_height=137.0*$inch
+param JGG_width=192.0*$inch
+param JGG_length=87.0*$inch
+param JGG_vap=49*$inch
+param JGG_hap=103.25*$inch
+param JGG_steel_width=0.5*($JGG_width-$JGG_hap)
+param JGG_steel_height=0.5*($JGG_height-$JGG_vap)
+
+# Start by just making JGG all steel. Can add complicated coils later if necessary.
+box JGG_h_steel height=$JGG_steel_height width=$JGG_width length=$JGG_length color=0,0.25,0 kill=$kill_aperture
+box JGG_v_steel height=$JGG_vap width=$JGG_steel_width length=$JGG_length color=0,0.25,0 kill=$kill_aperture
+
+place JGG_h_steel x=0 y=$JGG_y+0.5*($JGG_vap+$JGG_steel_height) z=$JGG_z
+place JGG_h_steel x=0 y=$JGG_y-0.5*($JGG_vap+$JGG_steel_height) z=$JGG_z
+place JGG_v_steel x=0.5*($JGG_hap+$JGG_steel_width) y=$JGG_y z=$JGG_z
+place JGG_v_steel x=-0.5*($JGG_hap+$JGG_steel_width) y=$JGG_y z=$JGG_z
+#-----------------------------------------
+
+#-------- Rosie -------------
+param Rosie_z=$translatez-400-86*$inch-0.5*(60+19.5)*$inch
+param Rosie_y=$translatey
+param Rosie_steel_length=60*$inch
+param Rosie_hsteel_height=0.5*111*$inch-0.5*36*$inch
+param Rosie_vsteel_width=0.5*182.38*$inch-0.5*60*$inch
+
+box Rosie_h_steel height=$Rosie_hsteel_height width=182.3*$inch length=$Rosie_steel_length color=0,0,0.25 kill=$kill_aperture
+place Rosie_h_steel x=0.0 y=$Rosie_y+0.5*36*$inch+0.5*$Rosie_hsteel_height z=$Rosie_z
+place Rosie_h_steel x=0.0 y=$Rosie_y-(0.5*36*$inch+0.5*$Rosie_hsteel_height) z=$Rosie_z
+
+box Rosie_v_steel height=36*$inch width=$Rosie_vsteel_width length=$Rosie_steel_length color=0,0,0.25 kill=$kill_aperture
+place Rosie_v_steel x=0.5*60*$inch+0.5*$Rosie_vsteel_width y=$Rosie_y z=$Rosie_z
+place Rosie_v_steel x=-(0.5*60*$inch+0.5*$Rosie_vsteel_width) y=$Rosie_y z=$Rosie_z
+
+box rosie_hcoil height=18*$inch width=72*$inch length=19.5*$inch material=Cu color=1.0,0.75,0.0 kill=$kill_aperture
+box rosie_vcoil height=36*$inch width=18*$inch length=19.5*$inch material=Cu color=1.0,0.75,0.0 kill=$kill_aperture
+
+place rosie_hcoil x=0.0 y=$Rosie_y+18*$inch+0.5*18*$inch z=$Rosie_z-0.5*60*$inch-0.5*19.5*$inch
+place rosie_hcoil x=0.0 y=$Rosie_y-18*$inch-0.5*18*$inch z=$Rosie_z-0.5*60*$inch-0.5*19.5*$inch
+place rosie_hcoil x=0.0 y=$Rosie_y+18*$inch+0.5*18*$inch z=$Rosie_z+0.5*60*$inch+0.5*19.5*$inch
+place rosie_hcoil x=0.0 y=$Rosie_y-18*$inch-0.5*18*$inch z=$Rosie_z+0.5*60*$inch+0.5*19.5*$inch
+
+place rosie_vcoil x=-0.5*36*$inch-0.5*18*$inch y=$translatey z=$Rosie_z+0.5*60*$inch+0.5*19.5*$inch
+place rosie_vcoil x=0.5*36*$inch+0.5*18*$inch y=$translatey z=$Rosie_z+0.5*60*$inch+0.5*19.5*$inch
+place rosie_vcoil x=-0.5*36*$inch-0.5*18*$inch y=$translatey z=$Rosie_z-0.5*60*$inch-0.5*19.5*$inch
+place rosie_vcoil x=0.5*36*$inch+0.5*18*$inch y=$translatey z=$Rosie_z-0.5*60*$inch-0.5*19.5*$inch
+
+#----------------------------------------
 
 place Det rename=Det21 x=0.0 y=$translatey+12*$inch z=$translatez-400 format=ascii file=21_$first.txt
 
 # NOvA TB target
-box slab height=31.75 length=209.55 width=6.35 material=Cu color=1,0.01,0.01 kill=$kill_aperture
+box slab height=31.75 length=209.55 width=6.35 material=Cu color=1.0,0.75,0.0 kill=$kill_aperture
 
 place slab rename=target_slab_-2 x=-13.0934206 y=-3.6025581999999994+$translatey z=44.287206+$translatez
 place slab rename=target_slab_-1 x=-6.743420599999999 y=-3.6025581999999994+$translatey z=22.142205999999998+$translatez
@@ -319,14 +451,14 @@ place slab rename=target_slab_0 x=-0.39342059999999995 y=-3.6025581999999994+$tr
 place slab rename=target_slab_1 x=5.9565794 y=-3.6025581999999994+$translatey z=-22.147794+$translatez
 place slab rename=target_slab_2 x=12.306579399999999 y=-3.6025581999999994+$translatey z=-44.292794+$translatez
 
-extrusion aperture_plate_1 length=50.8 vertices=0,0;-229.10799999999998,0.0;-503.45339999999993,1085.723;0.0,1085.723 material=Fe color=0,1,1 kill=$kill_aperture
+extrusion aperture_plate_1 length=50.8 vertices=0,0;-229.10799999999998,0.0;-503.45339999999993,1085.723;0.0,1085.723 material=Fe color=1,0,0 kill=$kill_aperture
 place aperture_plate_1 rename=aperture_plate_1 x=209.80399999999997 y=-0.35559999999999997+$translatey z=195.42759999999998+$translatez rotation=x90
 
-extrusion aperture_plate_2 length=50.8 vertices=0,0;-509.77799999999996,0.0;-509.77799999999996,1085.723;-352.8314,1085.723 material=Fe color=0,1,1 kill=$kill_aperture
+extrusion aperture_plate_2 length=50.8 vertices=0,0;-509.77799999999996,0.0;-509.77799999999996,1085.723;-352.8314,1085.723 material=Fe color=1,0,0 kill=$kill_aperture
 place aperture_plate_2 rename=aperture_plate_2 x=-93.21799999999999 y=-0.35559999999999997+$translatey z=195.42759999999998+$translatez rotation=x90
 
-box collimator_base height=131.826 length=1473.1999999999998 width=812.8 material=Fe color=0,1,1 kill=$kill_aperture
-box collimator_plate height=131.826 length=1085.723 width=812.8 material=Fe color=0,1,1 kill=$kill_aperture
+box collimator_base height=131.826 length=1473.1999999999998 width=812.8 material=Fe color=1,0,0 kill=$kill_aperture
+box collimator_plate height=131.826 length=1085.723 width=812.8 material=Fe color=1,0,0 kill=$kill_aperture
 place collimator_base rename=collimator_base x=-196.596 y=-223.49460000000002+$translatey z=544.5505999999999+$translatez
 place collimator_plate rename=collimator_bottom x=-196.596 y=-91.6686+$translatey z=738.2891+$translatez
 place collimator_plate rename=collimator_top_1 x=-196.596 y=90.9574+$translatey z=738.2891+$translatez
@@ -403,8 +535,8 @@ genericbend M1 fieldHeight=88.89999999999999 fieldLength=1066.8 fieldWidth=450.8
 place M1 By=$b_field x=-1279.1714319999999 y=-0.2624836+$translatey z=4730.6773052+$translatez rotation=Y-8.0
 
 group collimator_ds
-  box collimator_ds_bottom height=200.02499999999998 length=914.4 width=711.1999999999999 material=Fe color=0,1,1 kill=$kill_aperture
-  box collimator_ds_middle height=209.54999999999998 length=914.4 width=276.22499999999997 material=Fe color=0,1,1 kill=$kill_aperture
+  box collimator_ds_bottom height=200.02499999999998 length=914.4 width=711.1999999999999 material=Fe color=1,0,0 kill=$kill_aperture
+  box collimator_ds_middle height=209.54999999999998 length=914.4 width=276.22499999999997 material=Fe color=1,0,0 kill=$kill_aperture
   place collimator_ds_middle rename=+_middle_1 x=217.48749999999998 y=0.0 z=457.2
   place collimator_ds_middle rename=+_middle_2 x=-217.48749999999998 y=0.0 z=457.2
   place collimator_ds_bottom rename=+_bottom x=0.0 y=204.78749999999997 z=457.2
@@ -425,7 +557,7 @@ place tof_ds_sipm rename=tof_ds_sipm x=-1353.4397366 y=-0.503682+$translatey z=1
 detector cherenkov radius=157.5 length=2925.572 color=1,1,1 material=CARBON_DIOXIDE
 tubs cherenkov_pipe innerRadius=157.5 outerRadius=162.0 length=2925.572 color=0.74,0.34,0.09 material=STAINLESS-STEEL kill=$kill_aperture
 tubs cherenkov_pipe_pmt innerRadius=132.0 outerRadius=136.5 length=684.0 color=0.74,0.34,0.09 material=STAINLESS-STEEL kill=$kill_aperture
-box cherenkov_support height=1371.6000000000001 length=1828.8000000000002 width=914.4000000000001 material=CONCRETE color=0,1,1 kill=$kill_aperture
+box cherenkov_support height=1371.6000000000001 length=1828.8000000000002 width=914.4000000000001 material=CONCRETE color=0.6,0.6,0.6 kill=$kill_aperture
 
 place cherenkov rename=cherenkov x=-1353.6168 y=1.1176+$translatey z=12819.735599999998+$translatez rotation=y0.0
 place cherenkov_pipe rename=cherenkov_pipe x=-1353.6168 y=1.1176+$translatey z=12819.735599999998+$translatez rotation=y0.0
@@ -443,10 +575,10 @@ detector nova height=3038.3356249999997 length=1.0 width=3038.3356249999997 mate
 place nova rename=nova x=-1374.4731770833332 y=76.1231770833333+$translatey z=14617.377049180326+$translatez rotation=y-0.3492962692141463,z0.8032983167050841
 
 group shielding_block
-  box shielding_block_steel height=609.5999999999999 length=406.4 width=609.5999999999999 material=Fe color=0,1,1 kill=$kill_aperture
-  box shielding_block_cement height=609.5999999999999 length=406.4 width=609.5999999999999 material=CONCRETE color=0,1,1 kill=$kill_aperture
-  box shielding_block_concrete_bottom height=304.79999999999995 length=812.8 width=609.5999999999999 material=CONCRETE color=0,1,1 kill=$kill_aperture
-  box shielding_block_concrete_top height=101.6 length=812.8 width=609.5999999999999 material=CONCRETE color=0,1,1 kill=$kill_aperture
+  box shielding_block_steel height=609.5999999999999 length=406.4 width=609.5999999999999 material=Fe color=1,0,0 kill=$kill_aperture
+  box shielding_block_cement height=609.5999999999999 length=406.4 width=609.5999999999999 material=CONCRETE color=0.6,0.6,0.6 kill=$kill_aperture
+  box shielding_block_concrete_bottom height=304.79999999999995 length=812.8 width=609.5999999999999 material=CONCRETE color=0.6,0.6,0.6 kill=$kill_aperture
+  box shielding_block_concrete_top height=101.6 length=812.8 width=609.5999999999999 material=CONCRETE color=0.6,0.6,0.6kill=$kill_aperture
   place shielding_block_steel x=0.0 y=0.0 z=203.2
   place shielding_block_cement x=0.0 y=0.0 z=609.5999999999999
   place shielding_block_concrete_bottom x=0.0 y=-457.19999999999993 z=406.4
