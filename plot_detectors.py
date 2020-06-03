@@ -127,7 +127,7 @@ def plotDet(name, ymean, plotlim):
 
     # Pi-
     plt.subplot2grid((6,6), (3,2), rowspan=2, colspan=2)
-    plt.title('p-: %.2e'%(len(n_pionx)))
+    plt.title('pi-: %.2e'%(len(n_pionx)))
     plt.scatter(n_pionx,n_piony,c=n_pion_p,marker='o',s=markersize,lw=0,label='pi-',alpha=alpha,cmap=colormap)
     plt.xlabel('x [mm]')
     plt.ylabel('y [mm]')
@@ -163,7 +163,7 @@ def plotDet(name, ymean, plotlim):
     
     # Mu-
     plt.subplot2grid((6,6), (3,4), rowspan=2, colspan=2)
-    plt.title('mu-: %.2e'%(len(p_muonx)))
+    plt.title('mu-: %.2e'%(len(n_muonx)))
     plt.scatter(n_muonx,n_muony,c=n_muon_p,marker='o',s=markersize,lw=0,label='mu-',alpha=alpha,cmap=colormap)
     plt.xlabel('x [mm]')
     plt.ylabel('y [mm]')
@@ -172,7 +172,7 @@ def plotDet(name, ymean, plotlim):
     plt.colorbar()
     plt.gca().set_facecolor(bgcolor)
     plt.subplot2grid((6,6), (5,4), rowspan=1, colspan=2)
-    plt.hist(p_muon_p, bins=mom_bins, alpha=1.0, color='#AF272F')[0]
+    plt.hist(n_muon_p, bins=mom_bins, alpha=1.0, color='#AF272F')[0]
     plt.xlabel('Momentum [MeV/c]')
     plt.xlim(0,120000)
     plt.gca().set_yscale('log')
