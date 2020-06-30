@@ -3,10 +3,8 @@ import numpy as np
 from os import listdir
 import sys
 
-def plotDet(name, ymean, plotlim):
-    det_name = name.strip('_0.txt')
+def plotDet(det_name, filename, ymean, plotlim):
     print("Plotting detector {}".format(det_name))
-    filename = './'+name
     pdgID = []
     x = []
     px = []
@@ -76,7 +74,7 @@ def plotDet(name, ymean, plotlim):
     
     # Plot all particles together, color code by type
     fig = plt.figure(figsize=(20,14))
-    plt.suptitle('Detector {}'.format(name.strip('.txt')),fontsize=16)
+    plt.suptitle('Detector {}'.format(det_name),fontsize=16)
     
     markersize = 8.0
     alpha = 0.85
@@ -84,7 +82,7 @@ def plotDet(name, ymean, plotlim):
     mom_bins = 200
     bgcolor = '#FFFFFF' # '#e0e0eb' or '#F2F2F2'
     
-    if '26' in det_name:
+    if det_name in [24,25,26]:
         xmean = -1374.4731770833332
     else:
         xmean = 0.0
@@ -181,7 +179,7 @@ def plotDet(name, ymean, plotlim):
     
     plt.tight_layout()
     plt.subplots_adjust(top=0.92)
-    plt.savefig('./p_particles_{}.png'.format(name.strip('.txt')))
+    plt.savefig('./p_particles_{}.png'.format(det_name))
     plt.close()
     
     protons = len(protonx)
@@ -190,6 +188,12 @@ def plotDet(name, ymean, plotlim):
     p_muons = len(p_muonx)
     n_muons = len(n_muonx)
 
+if len(sys.argv) != 2:
+    print '''Example usage: python plot_detectors.py <path_to_files>
+  Script expects path to input files to be passed as argument.
+  These files are the text files produced from g4bl, named <det_number>_all.txt.'''
+    exit(1)
+
 protons_array = []
 p_pions_array = []
 n_pions_array = []
@@ -197,9 +201,9 @@ p_muons_array = []
 n_muons_array = []
 
 y_array = np.asarray([147.5, 224.3, 299.6, 361.8, 414.8328, 414.8328, 472.745, 499.871, 515.417, 529.6234, 568.15, 568.15, 610.2096, 622.7064, 648.0048, 681.8376, 705.612, 720.5472, 724.8144, 724.8144, 724.8144, 724.8144, 724.8144, 724.8144, 724.8144, 724.8144])-724.8144
-plotlim_array = [2.0E2,2.0E2,2.0E2,2.0E2,2.0E2,2.0E2,2.0E2,2.0E2,2.0E2,2.0E2,2.0E2,2.0E2,2.0E2,2.0E2,2.0E2,2.0E2,2.0E2,2.0E2,2.0E2,2.0E2,2.0E3,2.0E3,2.0E3,2.0E3,2.0E3,2.0E3]
+plotlim_array = [2.0E2,2.0E2,2.0E2,2.0E2,2.0E2,2.0E2,2.0E2,2.0E2,2.0E2,2.0E2,2.0E2,2.0E2,2.0E2,2.0E2,2.0E2,2.0E2,2.0E2,2.0E2,2.0E2,2.0E2,2.0E2,2.0E3,2.0E3,2.0E3,2.0E3,2.0E3]
+#plotlim_array = [2.0E2,2.0E2,2.0E2,2.0E2,2.0E2,2.0E2,2.0E2,2.0E2,2.0E2,2.0E2,2.0E2,2.0E2,2.0E2,2.0E2,2.0E2,2.0E2,2.0E2,2.0E2,2.0E2,2.0E3,2.0E3,2.0E3,2.0E3,2.0E3,2.0E3,2.0E3]
 
-
-for i in range(21,27):
-    filename = '{}_0.txt'.format(i)
-    plotDet('{}'.format(filename), y_array[i-1], plotlim_array[i-1])
+for det_num in range(21,27):
+    filename = '{}/{}_all.txt'.format(sys.argv[1], det_num)
+    plotDet(det_num, '{}'.format(filename), y_array[det_num-1], plotlim_array[det_num-1])
