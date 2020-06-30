@@ -1,0 +1,44 @@
+#  EPB dipole simulation
+#  lengths are in mm, fields is Tesla !  Momentum in MeV
+#______________________________________________________________________
+
+param EPB_color=0,0.1,0.8
+param copperColor=1.0,0.75,0.0
+param poleColor=0.6,0.6,0.6
+
+param steel_width=406
+param steel_height=317
+param steel_length=3048
+param coil_height=187
+param coil_length=3198
+param gap_height=35.6
+param top_plate_height=0.5*($steel_height-$gap_height-$coil_height)
+param coil_thickness=0.5*($coil_length-$steel_length)
+param pole_width=$steel_width-2*($coil_thickness+$top_plate_height)
+param pole_height=0.5*($coil_height-$gap_height)
+
+group EPB length=$steel_length material=Vacuum
+    box steel_top_bottom width=$steel_width height=$top_plate_height length=$steel_length material=Fe color=$EPB_color kill=$kill_aperture
+    box steel_side width=$top_plate_height height=$steel_height-2*($top_plate_height) length=$steel_length material=Fe color=$EPB_color kill=$kill_aperture
+    box pole width=$pole_width height=$pole_height length=$steel_length material=Fe color=$poleColor kill=$kill_aperture
+    box front_back_coil width=$pole_width height=$pole_height length=$coil_thickness material=Cu color=$copperColor kill=$kill_aperture
+    box side_coil width=$coil_thickness height=$pole_height length=$steel_length material=Cu color=$copperColor kill=$kill_aperture
+    
+    #Steel
+    place steel_top_bottom x=0 y=0.5*($gap_height+$coil_height+$top_plate_height) z=0
+    place steel_top_bottom x=0 y=-0.5*($gap_height+$coil_height+$top_plate_height) z=0
+    place steel_side x=0.5*($steel_width-$top_plate_height) y=0 z=0
+    place steel_side x=-0.5*($steel_width-$top_plate_height) y=0 z=0
+    place pole x=0 y=0.5*$steel_height-$top_plate_height-0.5*$coil_thickness-0.4 z=0
+    place pole x=0 y=-1.0*(0.5*$steel_height-$top_plate_height-0.5*$coil_thickness-0.4) z=0
+    
+    #Coils
+    #place front_back_coil x=0 y=1.0*(0.5*$steel_height-$top_plate_height-0.5*$coil_thickness-0.4) z=0.5*($steel_length+$coil_thickness)
+    #place front_back_coil x=0 y=-1.0*(0.5*$steel_height-$top_plate_height-0.5*$coil_thickness-0.4) z=0.5*($steel_length+$coil_thickness)
+    #place front_back_coil x=0 y=1.0*(0.5*$steel_height-$top_plate_height-0.5*$coil_thickness-0.4) z=-0.5*($steel_length+$coil_thickness)
+    #place front_back_coil x=0 y=-1.0*(0.5*$steel_height-$top_plate_height-0.5*$coil_thickness-0.4) z=-0.5*($steel_length+$coil_thickness)
+    place side_coil x=0.5*($pole_width+$coil_thickness) y=1.0*(0.5*$steel_height-$top_plate_height-0.5*$coil_thickness-0.4) z=0
+    place side_coil x=0.5*($pole_width+$coil_thickness) y=-1.0*(0.5*$steel_height-$top_plate_height-0.5*$coil_thickness-0.4) z=0
+    place side_coil x=-0.5*($pole_width+$coil_thickness) y=1.0*(0.5*$steel_height-$top_plate_height-0.5*$coil_thickness-0.4) z=0
+    place side_coil x=-0.5*($pole_width+$coil_thickness) y=-1.0*(0.5*$steel_height-$top_plate_height-0.5*$coil_thickness-0.4) z=0    
+endgroup

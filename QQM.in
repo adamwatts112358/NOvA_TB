@@ -1,0 +1,40 @@
+#  EPB dipole simulation
+#  lengths are in mm, fields is Tesla !  Momentum in MeV
+#______________________________________________________________________
+
+param color_3Q=0.79,0.38,0.14
+param copperColor=1.0,0.75,0.0
+param poleColor=0.6,0.6,0.6
+
+g4ui when=4 "/vis/viewer/set/background 1 1 1"
+
+param steel_width=2*165+1
+param steel_height=2*216+1
+param steel_length=3048
+param coil_length=3209
+param aperture_diameter=76.2
+
+group QQM width=$steel_width height=$steel_height length=$steel_length material=Vacuum
+    # Magnet steel yoke
+    extrusion steel length=$steel_length material=Fe color=$color_3Q vertices=152,0;165,0;165,216;0,216;0,152;74,152;91,136;20,65;25,29;65,20;136,91;152,74;
+    place steel x=0 y=0 z=0
+    place steel x=0 y=0 z=0 rotation=x180
+    place steel x=0 y=0 z=0 rotation=y180
+    place steel x=0 y=0 z=0 rotation=y180,x180
+    
+    # Coil packs
+    extrusion coil1 length=$steel_length material=Cu color=$copperColor vertices=90,0;129,0;152,24;152,74;136,91;65,20;
+    extrusion coil2 length=$steel_length material=Cu color=$copperColor vertices=0,90;0,129;24,152;74,152;91,136;20,65;
+    place coil1 x=0 y=0 z=0
+    place coil2 x=0 y=0 z=0
+    place coil1 x=0 y=0 z=0 rotation=x180
+    place coil2 x=0 y=0 z=0 rotation=x180
+    place coil1 x=0 y=0 z=0 rotation=y180
+    place coil2 x=0 y=0 z=0 rotation=y180
+    place coil1 x=0 y=0 z=0 rotation=y180,x180
+    place coil2 x=0 y=0 z=0 rotation=y180,x180
+    
+    # 3" circular beam pipe
+    tubs pipe_3in length=$steel_length innerRadius=0.5*$aperture_diameter-1.0 outerRadius=0.5*$aperture_diameter material=STAINLESS-STEEL color=$poleColor
+    place pipe_3in x=0 y=0 z=0
+endgroup

@@ -27,9 +27,11 @@ param eventTimeLimit=120.0
 
 param -unset p=64.0 #default momentum in GeV/c
 
-# Dipole currents
-param mc6di=452.5*($p/64.0)
+# Momentum collimator gap height
+param mom_coll_gap=127.0
 
+# Magnet currents
+param mc6di=452.5*($p/64.0)
 param mc6q1i=19.31827941*($p/64.0)
 param mc6q2i=-642.8273639*($p/64.0)
 param mc6q3i=37.33991241*($p/64.0)
@@ -38,20 +40,29 @@ param mc6q5i=429.9581841*($p/64.0)
 param mc6q6i=-39.7818009*($p/64.0)
 
 # Transfer functions [(T/m)/A]
-param xfer_3Q120=0.18570791858
-param xfer_4Q120=0.01842553191
-param xfer_EPB=0.000888625592
+#param xfer_3Q120=0.18570791858
+#param xfer_4Q120=0.01842553191
+#param xfer_EPB=0.000888625592
 
 # Quadrupole gradients [T/m]
-param mc6Q1g=$mc6q1i*$xfer_3Q120
-param mc6Q2g=$mc6q2i*$xfer_4Q120
-param mc6Q3g=$mc6q3i*$xfer_3Q120
-param mc6Q4g=$mc6q4i*$xfer_3Q120
-param mc6Q5g=$mc6q5i*$xfer_4Q120
-param mc6Q6g=$mc6q6i*$xfer_3Q120
+#param mc6Q1g=$mc6q1i*$xfer_3Q120
+#param mc6Q2g=$mc6q2i*$xfer_4Q120
+#param mc6Q3g=$mc6q3i*$xfer_3Q120
+#param mc6Q4g=$mc6q4i*$xfer_3Q120
+#param mc6Q5g=$mc6q5i*$xfer_4Q120
+#param mc6Q6g=$mc6q6i*$xfer_3Q120
 
 # Dipole fields
-param mc6db=$mc6di*$xfer_EPB
+#param mc6db=$mc6di*$xfer_EPB
+
+# Import main magnet defs and fieldmaps
+include EPB.in
+include QQM.in
+include RQB.in
+
+fieldmap MC6D_field file="EPB_fieldmap.txt" current=-1.0*$mc6di
+fieldmap QQM_field file="3Q120_fieldmap.txt"
+fieldmap RQB_field file="4Q120_fieldmap.txt"
 
 #beam gaussian particle=proton nEvents=1.0E5 z=-200 sigmaX=1.0 sigmaY=1.0 y=-8 rotation=x-1.31 meanMomentum=120000.0
 param -unset nParticles=1000
@@ -154,27 +165,39 @@ box ds_roof width=6*$ft+9*$inch+5.25*$ft+2*6*$ft height=6*$ft length=$ds_floor_l
 place ds_roof x=0 y=$floor+10.5*$ft+3*$ft z=36831.7784+0.5*$ds_floor_length+7.5*$ft
 #-----------------------------------------------------------------------------------
 
-genericbend EPB fieldHeight=35.6 fieldWidth=124.5 fieldLength=3048 fieldMaterial=AIR ironColor=$dipoleColor ironWidth=281.5 ironHeight=281.5 ironLength=3048 fringe=0 kill=$kill_aperture
-genericquad 3Q120 fieldLength=3048 fieldMaterial=AIR ironLength=3048 fringe=0 apertureRadius=38.1 ironRadius=305 ironColor=$quadrupoleColor kill=$kill_aperture
-genericquad 4Q120 fieldLength=3048 fieldMaterial=AIR ironLength=3048 fringe=0 apertureRadius=50.8 ironRadius=438  ironColor=$quadrupoleColor kill=$kill_aperture
+#genericbend EPB fieldHeight=35.6 fieldWidth=124.5 fieldLength=3048 fieldMaterial=AIR ironColor=$dipoleColor ironWidth=281.5 ironHeight=281.5 ironLength=3048 fringe=0 kill=$kill_aperture
+#genericquad 3Q120 fieldLength=3048 fieldMaterial=AIR ironLength=3048 fringe=0 apertureRadius=38.1 ironRadius=305 ironColor=$quadrupoleColor kill=$kill_aperture
+#genericquad 4Q120 fieldLength=3048 fieldMaterial=AIR ironLength=3048 fringe=0 apertureRadius=50.8 ironRadius=438  ironColor=$quadrupoleColor kill=$kill_aperture
 genericbend 4430 fieldHeight=101.6 fieldWidth=101.6 fieldLength=762 fieldMaterial=AIR ironLength=762 ironHeight=295 ironWidth=397 ironColor=$trimColor fringe=0 kill=$kill_aperture
 
 #place Det rename=Det1 z=6432.19-3048/2-$det_space y=147.5 rotation=x-1.31 format=ascii file=1_$first.txt
-place 3Q120 rename=Q1_1 z=6432.19 y=147.5 rotation=x-1.31 gradient=$mc6Q1g fieldMaterial=Vacuum
+#place 3Q120 rename=Q1_1 z=6432.19 y=147.5 rotation=x-1.31 gradient=$mc6Q1g fieldMaterial=Vacuum
+place QQM rename=Q1_1 z=6432.19 y=147.5 rotation=x-1.31
+place QQM_field z=6432.19 y=147.5 rotation=x-1.31 current=$mc6q1i
 
 #place Det rename=Det2 z=9884.08-3048/2-$det_space y=224.3 rotation=x-1.31 format=ascii file=2_$first.txt
-place 3Q120 rename=Q1_2 z=9884.08 y=224.3 rotation=x-1.31 gradient=$mc6Q1g fieldMaterial=Vacuum
+#place 3Q120 rename=Q1_2 z=9884.08 y=224.3 rotation=x-1.31 gradient=$mc6Q1g fieldMaterial=Vacuum
+place QQM rename=Q1_2 z=9884.08 y=224.3 rotation=x-1.31
+place QQM_field z=9884.08 y=224.3 rotation=x-1.31 current=$mc6q1i
 
 #place Det rename=Det3 z=13359.7144-3048/2-$det_space y=299.6 rotation=x-1.15 format=ascii file=3_$first.txt
-place EPB rename=MC6D1 z=13359.7144 y=299.6 By=$mc6db rotation=z90,x-1.15 fieldMaterial=Vacuum
+#place EPB rename=MC6D1 z=13359.7144 y=299.6 By=$mc6db rotation=z90,x-1.15 fieldMaterial=Vacuum
+place EPB rename=MC6D1 z=13359.7144 y=299.6 rotation=z90,x-1.15
+place MC6D_field z=13359.7144 y=299.6 rotation=z90,x-1.15
 
 #place Det rename=Det4 z=16711.9-3048/2-$det_space y=361.8 rotation=x-0.99 format=ascii file=4_$first.txt
-place 4Q120 rename=Q2 z=16711.9 y=361.8 rotation=x-0.99 gradient=$mc6Q2g fieldMaterial=Vacuum
+#place 4Q120 rename=Q2 z=16711.9 y=361.8 rotation=x-0.99 gradient=$mc6Q2g fieldMaterial=Vacuum
+place RQB rename=Q2 z=16711.9 y=361.8 rotation=x-0.99
+place RQB_field z=16711.9 y=361.8 rotation=x-0.99 current=$mc6q2i
 place A_block z=16711.9 y=$floor+9*$inch
 place A_block z=16711.9 y=$floor+1.5*$ft+9*$inch
 
 #place Det rename=Det5 z=20063.4-3048/2-$det_space y=414.8328 rotation=x-0.8194 format=ascii file=5_$first.txt
-place EPB rename=MC6D2 z=20064.4 y=414.8328 By=$mc6db rotation=z90,x-0.8194 fieldMaterial=Vacuum
+
+#place EPB rename=MC6D2 z=20064.4 y=414.8328 By=$mc6db rotation=z90,x-0.8194 fieldMaterial=Vacuum
+place EPB rename=MC6D2 z=20064.4 y=414.8328 rotation=z90,x-0.8194
+place MC6D_field z=20064.4 y=414.8328 rotation=z90,x-0.8194
+
 #place Det rename=Det6 z=20063.4+3048/2+$det_space y=414.8328 rotation=x-0.65 format=ascii file=6_$first.txt
 
 group Scraper1
@@ -195,7 +218,9 @@ place Scraper1 rename=Scraper1 y=445.9224 z=22393.072
 #----------------
 
 #place Det rename=Det7 z=24721.744-3048/2-$det_space y=472.745 rotation=x-0.653 format=ascii file=7_$first.txt
-place 3Q120 rename=Q3 z=24721.744 y=472.745 rotation=x-0.653 gradient=$mc6Q3g
+#place 3Q120 rename=Q3 z=24721.744 y=472.745 rotation=x-0.653 gradient=$mc6Q3g
+place QQM rename=Q3 z=24721.744 y=472.745 rotation=x-0.653
+place QQM_field z=24721.744 y=472.745 rotation=x-0.653 current=$mc6q3i
 
 #place Det rename=Det8 z=26931.24-762/2-$det_space y=499.871 rotation=x-0.917 format=ascii file=8_$first.txt
 place 4430 rename=VT1 z=26931.24 y=499.871 By=0 rotation=z90,x-0.917
@@ -220,13 +245,14 @@ place Scraper2 rename=Scraper2 y=529.6234 z=29236.4166
 #----------------
 
 #place Det rename=Det11 z=33049.7944-1676.4/2-$det_space y=568.15 rotation=x-0.656 format=ascii file=11_$first.txt
-#place Mom_Coll z=33049.7944 y=568.15 rotation=x-0.656
+
 #place Det rename=Det12 z=33049.7944+1676.4/2+$det_space y=568.15 rotation=x-0.66 format=ascii file=12_$first.txt
 
 #---Momentum collimator----
 param mom_coll_length=1676.4
 param mom_coll_z=33049.7944
-genericbend Mom_Coll fieldHeight=127 fieldWidth=127 fieldLength=$mom_coll_length fieldMaterial=AIR ironLength=$mom_coll_length ironHeight=295 ironWidth=397 ironColor=$collimatorColor By=0 fringe=0 kill=$kill_aperture
+genericbend Mom_Coll fieldHeight=$mom_coll_gap fieldWidth=127 fieldLength=$mom_coll_length fieldMaterial=AIR ironLength=$mom_coll_length ironHeight=295 ironWidth=397 ironColor=$collimatorColor By=0 fringe=0 kill=$kill_aperture
+place Mom_Coll z=$mom_coll_z y=568.15 rotation=x-0.656
 place E_block z=$mom_coll_z-4.5*$ft y=$floor+0.75*$ft x=1.5*$ft
 place E_block z=$mom_coll_z-4.5*$ft y=$floor+0.75*$ft x=-1.5*$ft
 place K_block z=$mom_coll_z-4.5*$ft y=$floor+2.0*$ft x=1.5*$ft
@@ -272,17 +298,37 @@ place 4430 rename=VT2 z=36831.7784 y=610.2096 By=0 rotation=z90,x-0.664 kill=$ki
 #place Det rename=Det14 z=37798.5784-700/2-$det_space y=622.7064 rotation=x-0.917 format=ascii file=14_$first.txt
 place 4430 rename=HT2 z=37798.5784 y=622.7064 rotation=x-0.665 By=0 kill=$kill_aperture
 #place Det rename=Det15 z=40008.38-3048/2-$det_space y=648.0048 rotation=x-0.917 format=ascii file=15_$first.txt
-place 3Q120 rename=Q4 z=40008.38 y=648.0048 rotation=x-0.659 gradient=$mc6Q4g
+
+#place 3Q120 rename=Q4 z=40008.38 y=648.0048 rotation=x-0.659 gradient=$mc6Q4g
+place QQM rename=Q4 z=40008.38 y=648.0048 rotation=x-0.659
+place QQM_field z=40008.38 y=648.0048 rotation=x-0.659 current=$mc6q4i
+
 #place Det rename=Det16 z=43360.88-3048/2-$det_space y=681.8376 rotation=x-0.917 format=ascii file=16_$first.txt
-place EPB rename=MC6D3 z=43360.88 y=681.8376 By=$mc6db rotation=z90,x-0.4927
+
+#place EPB rename=MC6D3 z=43360.88 y=681.8376 By=$mc6db rotation=z90,x-0.4927
+place EPB rename=MC6D3 z=43360.88 y=681.8376 rotation=z90,x-0.4927
+place MC6D_field z=43360.88 y=681.8376 rotation=z90,x-0.4927
+
 #place Det rename=Det17 z=46713.67-3048/2-$det_space y=705.612 rotation=x-0.917 format=ascii file=17_$first.txt
-place 4Q120 rename=Q5 z=46713.67 y=705.612 rotation=x-0.327 gradient=$mc6Q5g
+
+#place 4Q120 rename=Q5 z=46713.67 y=705.612 rotation=x-0.327 gradient=$mc6Q5g
+place RQB rename=Q5 z=46713.67 y=705.612 rotation=x-0.327
+place RQB_field z=46713.67 y=705.612 rotation=x-0.327 current=$mc6q5i
+
 place A_block z=46713.67 y=$floor+$ds_floor_height+0.5*1.5*$ft
 #place Det rename=Det18 z=50066.48-3048/2-$det_space y=720.5472 rotation=x-0.917 format=ascii file=18_$first.txt
-place EPB rename=MC6D4 z=50066.48 y=720.5472 By=$mc6db rotation=z90,x-0.166
+
+#place EPB rename=MC6D4 z=50066.48 y=720.5472 By=$mc6db rotation=z90,x-0.166
+place EPB rename=MC6D4 z=50066.48 y=720.5472 rotation=z90,x-0.166
+place MC6D_field z=50066.48 y=720.5472 rotation=z90,x-0.166
+
 place B_block z=50066.48 y=$floor+$ds_floor_height+0.5*3.0*$ft
 #place Det rename=Det19 z=53419.28-3048/2-$det_space y=724.8144 rotation=x-0.917 format=ascii file=19_$first.txt
-place 3Q120 rename=Q6 z=53419.28 y=724.8144 gradient=$mc6Q6g
+
+#place 3Q120 rename=Q6 z=53419.28 y=724.8144 gradient=$mc6Q6g
+place QQM rename=Q6 z=53419.28 y=724.81448
+place QQM_field z=53419.28 y=724.8144 current=$mc6q6i
+
 place B_block z=53419.28-1.5*$ft y=$floor+$ds_floor_height+0.5*3.0*$ft
 place L_block z=53419.28 y=$floor+0.5*$ft
 place L_block z=53419.28 y=$floor+1.5*$ft
@@ -578,7 +624,7 @@ group shielding_block
   box shielding_block_steel height=609.5999999999999 length=406.4 width=609.5999999999999 material=Fe color=1,0,0 kill=$kill_aperture
   box shielding_block_cement height=609.5999999999999 length=406.4 width=609.5999999999999 material=CONCRETE color=0.6,0.6,0.6 kill=$kill_aperture
   box shielding_block_concrete_bottom height=304.79999999999995 length=812.8 width=609.5999999999999 material=CONCRETE color=0.6,0.6,0.6 kill=$kill_aperture
-  box shielding_block_concrete_top height=101.6 length=812.8 width=609.5999999999999 material=CONCRETE color=0.6,0.6,0.6kill=$kill_aperture
+  box shielding_block_concrete_top height=101.6 length=812.8 width=609.5999999999999 material=CONCRETE color=0.6,0.6,0.6 kill=$kill_aperture
   place shielding_block_steel x=0.0 y=0.0 z=203.2
   place shielding_block_cement x=0.0 y=0.0 z=609.5999999999999
   place shielding_block_concrete_bottom x=0.0 y=-457.19999999999993 z=406.4
