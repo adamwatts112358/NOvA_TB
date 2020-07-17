@@ -345,7 +345,7 @@ place L_block z=53419.28 y=$floor+1.5*$ft
 genericquad HeTube gradient=0 fringe=0 apertureRadius=6*$inch ironRadius=6*$inch+1 fieldMaterial=He ironColor=0.6,0.6,0.6
 tubs mylar radius=6*$inch length=0.0762 color=0,0.8,0 material=MYLAR kill=$kill_aperture
 param He_length=45500.0
-place HeTube fieldLength=$He_length ironLength=$He_length z=62000+0.5*$He_length y=724.8144
+place HeTube fieldLength=$He_length ironLength=$He_length x=0 z=62000+0.5*$He_length y=724.8144
 place mylar z=62000-2*0.0762 y=724.8144
 place mylar z=62000+$He_length+0.0762 y=724.8144
 
@@ -450,10 +450,10 @@ param JGG_steel_height=0.5*($JGG_height-$JGG_vap)
 box JGG_h_steel height=$JGG_steel_height width=$JGG_width length=$JGG_length color=0,0.25,0 kill=$kill_aperture
 box JGG_v_steel height=$JGG_vap width=$JGG_steel_width length=$JGG_length color=0,0.25,0 kill=$kill_aperture
 
-place JGG_h_steel x=0 y=$JGG_y+0.5*($JGG_vap+$JGG_steel_height) z=$JGG_z
-place JGG_h_steel x=0 y=$JGG_y-0.5*($JGG_vap+$JGG_steel_height) z=$JGG_z
-place JGG_v_steel x=0.5*($JGG_hap+$JGG_steel_width) y=$JGG_y z=$JGG_z
-place JGG_v_steel x=-0.5*($JGG_hap+$JGG_steel_width) y=$JGG_y z=$JGG_z
+#place JGG_h_steel x=0 y=$JGG_y+0.5*($JGG_vap+$JGG_steel_height) z=$JGG_z
+#place JGG_h_steel x=0 y=$JGG_y-0.5*($JGG_vap+$JGG_steel_height) z=$JGG_z
+#place JGG_v_steel x=0.5*($JGG_hap+$JGG_steel_width) y=$JGG_y z=$JGG_z
+#place JGG_v_steel x=-0.5*($JGG_hap+$JGG_steel_width) y=$JGG_y z=$JGG_z
 #-----------------------------------------
 
 #-------- Rosie -------------
@@ -471,7 +471,7 @@ box Rosie_v_steel height=36*$inch width=$Rosie_vsteel_width length=$Rosie_steel_
 place Rosie_v_steel x=0.5*60*$inch+0.5*$Rosie_vsteel_width y=$Rosie_y z=$Rosie_z
 place Rosie_v_steel x=-(0.5*60*$inch+0.5*$Rosie_vsteel_width) y=$Rosie_y z=$Rosie_z
 
-box rosie_hcoil height=18*$inch width=72*$inch length=19.5*$inch material=Cu color=1.0,0.75,0.0 kill=$kill_aperture
+box rosie_hcoil height=18*$inch width=72*$inch+27*$inch length=19.5*$inch material=Cu color=1.0,0.75,0.0 kill=$kill_aperture
 box rosie_vcoil height=36*$inch width=18*$inch length=19.5*$inch material=Cu color=1.0,0.75,0.0 kill=$kill_aperture
 
 place rosie_hcoil x=0.0 y=$Rosie_y+18*$inch+0.5*18*$inch z=$Rosie_z-0.5*60*$inch-0.5*19.5*$inch
@@ -479,10 +479,22 @@ place rosie_hcoil x=0.0 y=$Rosie_y-18*$inch-0.5*18*$inch z=$Rosie_z-0.5*60*$inch
 place rosie_hcoil x=0.0 y=$Rosie_y+18*$inch+0.5*18*$inch z=$Rosie_z+0.5*60*$inch+0.5*19.5*$inch
 place rosie_hcoil x=0.0 y=$Rosie_y-18*$inch-0.5*18*$inch z=$Rosie_z+0.5*60*$inch+0.5*19.5*$inch
 
-place rosie_vcoil x=-0.5*36*$inch-0.5*18*$inch y=$translatey z=$Rosie_z+0.5*60*$inch+0.5*19.5*$inch
-place rosie_vcoil x=0.5*36*$inch+0.5*18*$inch y=$translatey z=$Rosie_z+0.5*60*$inch+0.5*19.5*$inch
-place rosie_vcoil x=-0.5*36*$inch-0.5*18*$inch y=$translatey z=$Rosie_z-0.5*60*$inch-0.5*19.5*$inch
-place rosie_vcoil x=0.5*36*$inch+0.5*18*$inch y=$translatey z=$Rosie_z-0.5*60*$inch-0.5*19.5*$inch
+place rosie_vcoil x=-36*$inch-0.5*9*$inch y=$translatey z=$Rosie_z+0.5*60*$inch+0.5*19.5*$inch
+place rosie_vcoil x=36*$inch+0.5*9*$inch y=$translatey z=$Rosie_z+0.5*60*$inch+0.5*19.5*$inch
+place rosie_vcoil x=-36*$inch-0.5*9*$inch y=$translatey z=$Rosie_z-0.5*60*$inch-0.5*19.5*$inch
+place rosie_vcoil x=36*$inch+0.5*9*$inch y=$translatey z=$Rosie_z-0.5*60*$inch-0.5*19.5*$inch
+
+
+### Test shielding inside Rosie aperture for plume mitigation
+param rosie_shielding_width=24.0*$inch
+box rosie_side_block width=$rosie_shielding_width height=36*$inch length=$Rosie_steel_length material=CONCRETE color=0.6,0.6,0.6 kill=$kill_aperture
+place rosie_side_block x=-6.25*$inch-0.5*$rosie_shielding_width+0.325*$inch y=$Rosie_y z=$Rosie_z
+place rosie_side_block x=6.25*$inch+0.5*$rosie_shielding_width-0.325*$inch y=$Rosie_y z=$Rosie_z
+
+param rosie_shielding_height=12*$inch
+box rosie_vertical_block width=11.5*$inch height=$rosie_shielding_height length=$Rosie_steel_length material=CONCRETE color=0.6,0.6,0.6 kill=$kill_aperture
+place rosie_vertical_block x=0 y=$Rosie_y-(6.00*$inch+0.5*$rosie_shielding_height) z=$Rosie_z
+place rosie_vertical_block x=0 y=$Rosie_y+(6.00*$inch+0.5*$rosie_shielding_height) z=$Rosie_z
 
 #----------------------------------------
 

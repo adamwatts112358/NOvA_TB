@@ -1,17 +1,31 @@
 G4BL_DIR=C:\Program Files (x86)\Muonsinc\G4beamline
-G4beamline Process ID 17028
+G4ENSDFSTATEDATA=C:\Geant4Data/G4ENSDFSTATE2.2
+G4LEDATA=C:\Geant4Data/G4EMLOW7.7
+G4LEVELGAMMADATA=C:\Geant4Data/PhotonEvaporation5.3
+G4SAIDXSDATA=C:\Geant4Data/G4SAIDDATA2.0
+G4NEUTRONHPDATA=C:\Geant4Data/G4NDL4.5
+G4NEUTRONXSDATA=C:\Geant4Data/G4NEUTRONXS1.4
+G4PIIDATA=C:\Geant4Data/G4PII1.3
+G4RADIOACTIVEDATA=C:\Geant4Data/RadioactiveDecay5.3
+G4REALSURFACEDATA=C:\Geant4Data/RealSurface2.1.1
+G4ABLADATA=C:\Geant4Data/G4ABLA3.1
+G4PARTICLEXSDATA=C:\Geant4Data/G4PARTICLEXS1.1
+G4INCLDATA=C:\Geant4Data/G4INCL1.0
+G4beamline Process ID 15780
 
 *************************************************************
- g4beamline version: 3.04                        (Mar  2 2017)
+ g4beamline version: 3.06                        (Jan 18 2019)
                       Copyright : Tom Roberts, Muons, Inc.
                         License : Gnu Public License
                             WWW : http://g4beamline.muonsinc.com
-*************************************************************
- Geant4 version Name: geant4-10-03    (9-December-2016)
-                      Copyright : Geant4 Collaboration
-                      Reference : NIM A 506 (2003), 250-303
-                            WWW : http://cern.ch/geant4
-*************************************************************
+**************************************************************
+ Geant4 version Name: geant4-10-05    (7-December-2018)
+                       Copyright : Geant4 Collaboration
+                      References : NIM A 506 (2003), 250-303
+                                 : IEEE-TNS 53 (2006), 270-278
+                                 : NIM A 835 (2016), 186-225
+                             WWW : http://geant4.org/
+**************************************************************
 
 param        viewer        best,1
 geometry                   nPoints=100 printGeometry=0 visual=0
@@ -302,21 +316,33 @@ genericbend  4430          fieldWidth=101.6 fieldHeight=101.6 fieldLength=762
                            maxStep=100 fieldMaterial=AIR fieldColor=
                            ironMaterial=Fe ironColor=0.31,0.55,0.2 kill=0
                            fringe=0 fringeFactor=1 openAperture=0
+place   Det     copies=1 x=0.0 y=147.5 z=4708.2 rename='Det1'rotation='x-1.31'
+                file=1_0.txt format=ascii
 place   QQM     copies=1 x=0.0 y=147.5 z=6432.2 rename='Q1_1'rotation='x-1.31'
 place   QQM_field copies=1 x=0.0 y=147.5 z=6432.2 rotation='x-1.31'
                 current=19.318279
+place   Det     copies=1 x=0.0 y=224.3 z=8160.1 rename='Det2'rotation='x-1.31'
+                file=2_0.txt format=ascii
 place   QQM     copies=1 x=0.0 y=224.3 z=9884.1 rename='Q1_2'rotation='x-1.31'
 place   QQM_field copies=1 x=0.0 y=224.3 z=9884.1 rotation='x-1.31'
                 current=19.318279
+place   Det     copies=1 x=0.0 y=299.6 z=11635.7 rename='Det3'rotation='x-1.15'
+                file=3_0.txt format=ascii
 place   EPB     copies=1 x=0.0 y=299.6 z=13359.7 rename='MC6D1'rotation='z90,x-1.15'
 place   MC6D_field copies=1 x=0.0 y=299.6 z=13359.7 rotation='z90,x-1.15'
+place   Det     copies=1 x=0.0 y=361.8 z=14987.9 rename='Det4'rotation='x-0.99'
+                file=4_0.txt format=ascii
 place   RQB     copies=1 x=0.0 y=361.8 z=16711.9 rename='Q2'rotation='x-0.99'
 place   RQB_field copies=1 x=0.0 y=361.8 z=16711.9 rotation='x-0.99'
                 current=-642.82736
 place   A_block copies=1 x=0.0 y=-1051.4 z=16711.9 
 place   A_block copies=1 x=0.0 y=-594.2 z=16711.9 
+place   Det     copies=1 x=0.0 y=414.8 z=18339.4 rename='Det5'rotation='x-0.8194'
+                file=5_0.txt format=ascii
 place   EPB     copies=1 x=0.0 y=414.8 z=20064.4 rename='MC6D2'rotation='z90,x-0.8194'
 place   MC6D_field copies=1 x=0.0 y=414.8 z=20064.4 rotation='z90,x-0.8194'
+place   Det     copies=1 x=0.0 y=414.8 z=21787.4 rename='Det6'rotation='x-0.65'
+                file=6_0.txt format=ascii
 group        Scraper1      length=0 width=0 height=0 radius=-1 material=Vacuum
                            color= maxStep=100
 box          Scrap_Steel_Side height=50.8 width=441.3 length=997 maxStep=100
@@ -337,11 +363,17 @@ box          Scrap_ConcrDown height=1588 width=914.4 length=997 maxStep=100
   place Scrap_ConcrDown copies=1 x=0.0 y=-844.6 z=498.5 rename='+_concrete_down'
 endgroup Scraper1 length=997.0 width=914.4 height=3276.6
 place   Scraper1 copies=1 x=0.0 y=445.9 z=22393.1 rename='Scraper1'
+place   Det     copies=1 x=0.0 y=472.7 z=22997.7 rename='Det7'rotation='x-0.653'
+                file=7_0.txt format=ascii
 place   QQM     copies=1 x=0.0 y=472.7 z=24721.7 rename='Q3'rotation='x-0.653'
 place   QQM_field copies=1 x=0.0 y=472.7 z=24721.7 rotation='x-0.653'
                 current=37.339912
+place   Det     copies=1 x=0.0 y=499.9 z=26350.2 rename='Det8'rotation='x-0.917'
+                file=8_0.txt format=ascii
 place   4430    copies=1 x=0.0 y=499.9 z=26931.2 rename='VT1'rotation='z90,x-0.917'
                 By=0
+place   Det     copies=1 x=0.0 y=515.4 z=27417.0 rename='Det9'rotation='x-0.917'
+                file=9_0.txt format=ascii
 place   4430    copies=1 x=0.0 y=515.4 z=27998.0 rename='HT1'rotation='x-0.917'
                 By=0
 place   C_block copies=1 x=0.0 y=-822.8 z=27417.0 
@@ -359,7 +391,13 @@ box          Scrap2_ConcrDown height=1676 width=914.4 length=1003 maxStep=100
   place Scrap2_ConcrUp copies=1 x=0.0 y=508.0 z=501.7 rename='+_concrete_up'
   place Scrap2_ConcrDown copies=1 x=0.0 y=-889.0 z=501.7 rename='+_concrete_down'
 endgroup Scraper2 length=1003.4 width=1016.0 height=3454.4
+place   Det     copies=1 x=0.0 y=529.6 z=28536.4 rename='Det10'rotation='x-0.66'
+                file=10_0.txt format=ascii
 place   Scraper2 copies=1 x=0.0 y=529.6 z=29236.4 rename='Scraper2'
+place   Det     copies=1 x=0.0 y=568.1 z=32011.6 rename='Det11'rotation='x-0.656'
+                file=11_0.txt format=ascii
+place   Det     copies=1 x=0.0 y=568.1 z=34088.0 rename='Det12'rotation='x-0.66'
+                file=12_0.txt format=ascii
 param        mom_coll_length 1676.4
 param        mom_coll_z    33049.7944
 genericbend  Mom_Coll      fieldWidth=127 fieldHeight=127 fieldLength=1676
@@ -402,22 +440,36 @@ place   Scraper3 copies=1 x=0.0 y=568.1 z=34467.1 rename='Scraper3'
 place   K_block copies=1 x=0.0 y=-518.0 z=37289.0 
 place   K_block copies=1 x=0.0 y=-518.0 z=38355.8 
 place   J_block copies=1 x=0.0 y=-137.0 z=36800.0 
+place   Det     copies=1 x=0.0 y=610.2 z=36250.8 rename='Det13'rotation='x-0.917'
+                file=13_0.txt format=ascii
 place   4430    copies=1 x=0.0 y=610.2 z=36831.8 rename='VT2'rotation='z90,x-0.664'
                 By=0 kill=0
+place   Det     copies=1 x=0.0 y=622.7 z=37248.6 rename='Det14'rotation='x-0.917'
+                file=14_0.txt format=ascii
 place   4430    copies=1 x=0.0 y=622.7 z=37798.6 rename='HT2'rotation='x-0.665'
                 By=0 kill=0
+place   Det     copies=1 x=0.0 y=648.0 z=38284.4 rename='Det15'rotation='x-0.917'
+                file=15_0.txt format=ascii
 place   QQM     copies=1 x=0.0 y=648.0 z=40008.4 rename='Q4'rotation='x-0.659'
 place   QQM_field copies=1 x=0.0 y=648.0 z=40008.4 rotation='x-0.659'
                 current=-29.574699
+place   Det     copies=1 x=0.0 y=681.8 z=41636.9 rename='Det16'rotation='x-0.917'
+                file=16_0.txt format=ascii
 place   EPB     copies=1 x=0.0 y=681.8 z=43360.9 rename='MC6D3'rotation='z90,x-0.4927'
 place   MC6D_field copies=1 x=0.0 y=681.8 z=43360.9 rotation='z90,x-0.4927'
+place   Det     copies=1 x=0.0 y=705.6 z=44989.7 rename='Det17'rotation='x-0.917'
+                file=17_0.txt format=ascii
 place   RQB     copies=1 x=0.0 y=705.6 z=46713.7 rename='Q5'rotation='x-0.327'
 place   RQB_field copies=1 x=0.0 y=705.6 z=46713.7 rotation='x-0.327'
                 current=429.95818
 place   A_block copies=1 x=0.0 y=-441.8 z=46713.7 
+place   Det     copies=1 x=0.0 y=720.5 z=48342.5 rename='Det18'rotation='x-0.917'
+                file=18_0.txt format=ascii
 place   EPB     copies=1 x=0.0 y=720.5 z=50066.5 rename='MC6D4'rotation='z90,x-0.166'
 place   MC6D_field copies=1 x=0.0 y=720.5 z=50066.5 rotation='z90,x-0.166'
 place   B_block copies=1 x=0.0 y=-213.2 z=50066.5 
+place   Det     copies=1 x=0.0 y=724.8 z=51695.3 rename='Det19'rotation='x-0.917'
+                file=19_0.txt format=ascii
 place   QQM     copies=1 x=0.0 y=724.8 z=53419.3 rename='Q6'
 place   QQM_field copies=1 x=0.0 y=724.8 z=53419.3 
                 current=-39.781801
@@ -512,10 +564,6 @@ box          JGG_h_steel   height=1118 width=4877 length=2210 maxStep=100
                            material= color=0,0.25,0 kill=0
 box          JGG_v_steel   height=1245 width=1127 length=2210 maxStep=100
                            material= color=0,0.25,0 kill=0
-place   JGG_h_steel copies=1 x=0.0 y=1901.6 z=98225.2 
-place   JGG_h_steel copies=1 x=0.0 y=-460.6 z=98225.2 
-place   JGG_v_steel copies=1 x=1874.8 y=720.5 z=98225.2 
-place   JGG_v_steel copies=1 x=-1874.8 y=720.5 z=98225.2 
 param        Rosie_z       104408.94
 param        Rosie_y       720.5472
 param        Rosie_steel_length 1524
@@ -529,7 +577,7 @@ box          Rosie_v_steel height=914.4 width=1554 length=1524 maxStep=100
                            material= color=0,0,0.25 kill=0
 place   Rosie_v_steel copies=1 x=1539.1 y=720.5 z=104408.9 
 place   Rosie_v_steel copies=1 x=-1539.1 y=720.5 z=104408.9 
-box          rosie_hcoil   height=457.2 width=1829 length=495.3 maxStep=100
+box          rosie_hcoil   height=457.2 width=2515 length=495.3 maxStep=100
                            material=Cu color=1.0,0.75,0.0 kill=0
 box          rosie_vcoil   height=914.4 width=457.2 length=495.3 maxStep=100
                            material=Cu color=1.0,0.75,0.0 kill=0
@@ -537,10 +585,21 @@ place   rosie_hcoil copies=1 x=0.0 y=1406.3 z=103399.3
 place   rosie_hcoil copies=1 x=0.0 y=34.7 z=103399.3 
 place   rosie_hcoil copies=1 x=0.0 y=1406.3 z=105418.6 
 place   rosie_hcoil copies=1 x=0.0 y=34.7 z=105418.6 
-place   rosie_vcoil copies=1 x=-685.8 y=720.5 z=105418.6 
-place   rosie_vcoil copies=1 x=685.8 y=720.5 z=105418.6 
-place   rosie_vcoil copies=1 x=-685.8 y=720.5 z=103399.3 
-place   rosie_vcoil copies=1 x=685.8 y=720.5 z=103399.3 
+place   rosie_vcoil copies=1 x=-1028.7 y=720.5 z=105418.6 
+place   rosie_vcoil copies=1 x=1028.7 y=720.5 z=105418.6 
+place   rosie_vcoil copies=1 x=-1028.7 y=720.5 z=103399.3 
+place   rosie_vcoil copies=1 x=1028.7 y=720.5 z=103399.3 
+param        rosie_shielding_width 609.6
+box          rosie_side_block height=914.4 width=609.6 length=1524 maxStep=100
+                           material=CONCRETE color=0.6,0.6,0.6 kill=0
+place   rosie_side_block copies=1 x=-455.3 y=720.5 z=104408.9 
+place   rosie_side_block copies=1 x=455.3 y=720.5 z=104408.9 
+param        rosie_shielding_height 304.8
+box          rosie_vertical_block height=304.8 width=292.1 length=1524
+                           maxStep=100 material=CONCRETE color=0.6,0.6,0.6
+                           kill=0
+place   rosie_vertical_block copies=1 x=0.0 y=415.7 z=104408.9 
+place   rosie_vertical_block copies=1 x=0.0 y=1025.3 z=104408.9 
 place   Det     copies=1 x=0.0 y=1025.3 z=107603.0 rename='Det21'
                 file=21_0.txt format=ascii
 box          slab          height=31.75 width=6.35 length=209.6 maxStep=100
@@ -902,6 +961,8 @@ mom_coll_length=1676.4
     pole_height=75.7
      pole_width=161.6
 quadrupoleColor=0.79,0.38,0.14
+rosie_shielding_height=304.8
+rosie_shielding_width=609.6
    scraperColor=0.8,0,0
       steel_gap=30
    steel_height=876
@@ -1014,9 +1075,20 @@ BLCMDbox::Construct ds_wall parent= relZ=29059.4 globZ=29059.4
 Checking overlaps for volume ds_roof ... OK! 
 BLCMDbox::Construct ds_roof parent= relZ=46890.2 globZ=46890.2
 	zmin=36831.8 zmax=56948.6
+**************************************************************************
+*** G4Exception: GeomVol1002
+***    severity: Warning
+***   issued by: G4PVPlacement::CheckOverlaps()
+*** description: Overlap with volume already placed !
+          Overlap is detected for volume Det1:0
+          with floor:0 volume's
+          local point (-431.903,454.943,-56548.5), overlapping by at least: 11.6557 cm 
+NOTE: Reached maximum fixed number -1- of overlaps reports for this volume !
+**************************************************************************
+BLCMDvirtualdetector::Construct Det1 parent= relZ=4708.2 globZ=4703.6
 BLGroup::Construct Q1_1 parent= relZ=6432.2 globZ=0.0 length=3048.0
 	zmin=-1524.0 zmax=1524.0 width=331.0 Height=433.0
-Checking overlaps for volume Q1_1 ... OK! 
+Checking overlaps for volume Det1 ... Checking overlaps for volume Q1_1 ... OK! 
 	Parent pos=0.0,0.0,0.0 Relative pos=0.0,147.5,6432.2 Global pos=0.0,147.5,6432.2
 Checking overlaps for volume Q1_1steel ... OK! 
 BLCMDextrusion::Construct Q1_1steel parent=Q1_1 relZ=0.0 globZ=6432.2
@@ -1058,9 +1130,20 @@ Checking overlaps for volume Q1_1pipe_3in ... OK!
 BLCMDtubs::Construct Q1_1pipe_3in parent=Q1_1 relZ=0.0 globZ=6432.2
 	zmin=4908.2 zmax=7956.2 kill=0
 BLMappedMagnet::Construct QQM_field parent= relZ=6432.2
+**************************************************************************
+*** G4Exception: GeomVol1002
+***    severity: Warning
+***   issued by: G4PVPlacement::CheckOverlaps()
+*** description: Overlap with volume already placed !
+          Overlap is detected for volume Det2:0
+          with floor:0 volume's
+          local point (-2095.33,550.364,-53096), overlapping by at least: 2.11364 cm 
+NOTE: Reached maximum fixed number -1- of overlaps reports for this volume !
+**************************************************************************
+BLCMDvirtualdetector::Construct Det2 parent= relZ=8160.1 globZ=8152.8
 BLGroup::Construct Q1_2 parent= relZ=9884.1 globZ=0.0 length=3048.0
 	zmin=-1524.0 zmax=1524.0 width=331.0 Height=433.0
-Checking overlaps for volume Q1_2 ... OK! 
+Checking overlaps for volume Det2 ... Checking overlaps for volume Q1_2 ... OK! 
 	Parent pos=0.0,0.0,0.0 Relative pos=0.0,224.3,9884.1 Global pos=0.0,224.3,9884.1
 Checking overlaps for volume Q1_2steel ... OK! 
 BLCMDextrusion::Construct Q1_2steel parent=Q1_2 relZ=0.0 globZ=9884.1
@@ -1102,9 +1185,20 @@ Checking overlaps for volume Q1_2pipe_3in ... OK!
 BLCMDtubs::Construct Q1_2pipe_3in parent=Q1_2 relZ=0.0 globZ=9884.1
 	zmin=8360.1 zmax=11408.1 kill=0
 BLMappedMagnet::Construct QQM_field parent= relZ=9884.1
+**************************************************************************
+*** G4Exception: GeomVol1002
+***    severity: Warning
+***   issued by: G4PVPlacement::CheckOverlaps()
+*** description: Overlap with volume already placed !
+          Overlap is detected for volume Det3:0
+          with floor:0 volume's
+          local point (397.213,132.121,-49615.8), overlapping by at least: 43.9379 cm 
+NOTE: Reached maximum fixed number -1- of overlaps reports for this volume !
+**************************************************************************
+BLCMDvirtualdetector::Construct Det3 parent= relZ=11635.7 globZ=11627.4
 BLGroup::Construct MC6D1 parent= relZ=13359.7 globZ=0.0 length=3048.0
 	zmin=-1524.0 zmax=1524.0 width=406.0 Height=317.0
-Checking overlaps for volume MC6D1 ... OK! 
+Checking overlaps for volume Det3 ... Checking overlaps for volume MC6D1 ... OK! 
 	Parent pos=0.0,0.0,0.0 Relative pos=0.0,299.6,13359.7 Global pos=0.0,299.6,13359.7
 Checking overlaps for volume MC6D1steel_top_bottom ... OK! 
 BLCMDbox::Construct MC6D1steel_top_bottom parent=MC6D1 relZ=0.0 globZ=13359.7
@@ -1137,9 +1231,20 @@ Checking overlaps for volume MC6D1side_coil ... OK!
 BLCMDbox::Construct MC6D1side_coil parent=MC6D1 relZ=0.0 globZ=13362.1
 	zmin=11838.1 zmax=14886.1
 BLMappedMagnet::Construct MC6D_field parent= relZ=13359.7
+**************************************************************************
+*** G4Exception: GeomVol1002
+***    severity: Warning
+***   issued by: G4PVPlacement::CheckOverlaps()
+*** description: Overlap with volume already placed !
+          Overlap is detected for volume Det4:0
+          with floor:0 volume's
+          local point (2020.13,64.6532,-46267), overlapping by at least: 50.6847 cm 
+NOTE: Reached maximum fixed number -1- of overlaps reports for this volume !
+**************************************************************************
+BLCMDvirtualdetector::Construct Det4 parent= relZ=14987.9 globZ=14979.4
 BLGroup::Construct Q2 parent= relZ=16711.9 globZ=0.0 length=3048.0
 	zmin=-1524.0 zmax=1524.0 width=585.0 Height=877.0
-Checking overlaps for volume Q2 ... OK! 
+Checking overlaps for volume Det4 ... Checking overlaps for volume Q2 ... OK! 
 	Parent pos=0.0,0.0,0.0 Relative pos=0.0,361.8,16711.9 Global pos=0.0,361.8,16711.9
 Checking overlaps for volume Q2steel ... OK! 
 BLCMDextrusion::Construct Q2steel parent=Q2 relZ=0.0 globZ=16711.9
@@ -1191,9 +1296,20 @@ BLCMDbox::Construct A_block parent= relZ=16711.9 globZ=16711.9
 Checking overlaps for volume A_block ... OK! 
 BLCMDbox::Construct A_block parent= relZ=16711.9 globZ=16711.9
 	zmin=15568.9 zmax=17854.9
+**************************************************************************
+*** G4Exception: GeomVol1002
+***    severity: Warning
+***   issued by: G4PVPlacement::CheckOverlaps()
+*** description: Overlap with volume already placed !
+          Overlap is detected for volume Det5:0
+          with upstream_roof:0 volume's
+          local point (-2050.02,-910.358,-7855.52), overlapping by at least: 4.0417 mm 
+NOTE: Reached maximum fixed number -1- of overlaps reports for this volume !
+**************************************************************************
+BLCMDvirtualdetector::Construct Det5 parent= relZ=18339.4 globZ=18331.6
 BLGroup::Construct MC6D2 parent= relZ=20064.4 globZ=0.0 length=3048.0
 	zmin=-1524.0 zmax=1524.0 width=406.0 Height=317.0
-Checking overlaps for volume MC6D2 ... OK! 
+Checking overlaps for volume Det5 ... Checking overlaps for volume MC6D2 ... OK! 
 	Parent pos=0.0,0.0,0.0 Relative pos=0.0,414.8,20064.4 Global pos=0.0,414.8,20064.4
 Checking overlaps for volume MC6D2steel_top_bottom ... OK! 
 BLCMDbox::Construct MC6D2steel_top_bottom parent=MC6D2 relZ=0.0 globZ=20064.4
@@ -1226,9 +1342,20 @@ Checking overlaps for volume MC6D2side_coil ... OK!
 BLCMDbox::Construct MC6D2side_coil parent=MC6D2 relZ=0.0 globZ=20066.1
 	zmin=18542.1 zmax=21590.1
 BLMappedMagnet::Construct MC6D_field parent= relZ=20064.4
+**************************************************************************
+*** G4Exception: GeomVol1002
+***    severity: Warning
+***   issued by: G4PVPlacement::CheckOverlaps()
+*** description: Overlap with volume already placed !
+          Overlap is detected for volume Det6:0
+          with ds_wall:0 volume's
+          local point (846.425,1323.88,-7286.42), overlapping by at least: 6.79745 cm 
+NOTE: Reached maximum fixed number -1- of overlaps reports for this volume !
+**************************************************************************
+BLCMDvirtualdetector::Construct Det6 parent= relZ=21787.4 globZ=21781.3
 BLGroup::Construct Scraper1 parent= relZ=22393.1 globZ=0.0 length=997.0
 	zmin=-498.5 zmax=498.5 width=914.4 Height=3276.6
-Checking overlaps for volume Scraper1 ... OK! 
+Checking overlaps for volume Det6 ... Checking overlaps for volume Scraper1 ... OK! 
 	Parent pos=0.0,0.0,0.0 Relative pos=0.0,445.9,22393.1 Global pos=0.0,445.9,22393.1
 Checking overlaps for volume Scraper1_steel_left ... OK! 
 BLCMDbox::Construct Scraper1_steel_left parent=Scraper1 relZ=0.0 globZ=22393.1
@@ -1248,9 +1375,20 @@ BLCMDbox::Construct Scraper1_concrete_up parent=Scraper1 relZ=0.0 globZ=22393.1
 Checking overlaps for volume Scraper1_concrete_down ... OK! 
 BLCMDbox::Construct Scraper1_concrete_down parent=Scraper1 relZ=0.0 globZ=22393.1
 	zmin=21894.6 zmax=22891.6
+**************************************************************************
+*** G4Exception: GeomVol1002
+***    severity: Warning
+***   issued by: G4PVPlacement::CheckOverlaps()
+*** description: Overlap with volume already placed !
+          Overlap is detected for volume Det7:0
+          with floor:0 volume's
+          local point (-1396.9,351.55,-38271.8), overlapping by at least: 21.995 cm 
+NOTE: Reached maximum fixed number -1- of overlaps reports for this volume !
+**************************************************************************
+BLCMDvirtualdetector::Construct Det7 parent= relZ=22997.7 globZ=22990.9
 BLGroup::Construct Q3 parent= relZ=24721.7 globZ=0.0 length=3048.0
 	zmin=-1524.0 zmax=1524.0 width=331.0 Height=433.0
-Checking overlaps for volume Q3 ... OK! 
+Checking overlaps for volume Det7 ... Checking overlaps for volume Q3 ... OK! 
 	Parent pos=0.0,0.0,0.0 Relative pos=0.0,472.7,24721.7 Global pos=0.0,472.7,24721.7
 Checking overlaps for volume Q3steel ... OK! 
 BLCMDextrusion::Construct Q3steel parent=Q3 relZ=0.0 globZ=24721.7
@@ -1292,11 +1430,33 @@ Checking overlaps for volume Q3pipe_3in ... OK!
 BLCMDtubs::Construct Q3pipe_3in parent=Q3 relZ=0.0 globZ=24721.7
 	zmin=23197.7 zmax=26245.7 kill=0
 BLMappedMagnet::Construct QQM_field parent= relZ=24721.7
-Checking overlaps for volume VT1 ... OK! 
+**************************************************************************
+*** G4Exception: GeomVol1002
+***    severity: Warning
+***   issued by: G4PVPlacement::CheckOverlaps()
+*** description: Overlap with volume already placed !
+          Overlap is detected for volume Det8:0
+          with floor:0 volume's
+          local point (-965.502,165.328,-34906.8), overlapping by at least: 40.6172 cm 
+NOTE: Reached maximum fixed number -1- of overlaps reports for this volume !
+**************************************************************************
+BLCMDvirtualdetector::Construct Det8 parent= relZ=26350.2 globZ=26338.9
+Checking overlaps for volume Det8 ... Checking overlaps for volume VT1 ... OK! 
 Checking overlaps for volume VT1 ... OK! 
 BLCMDgenericbend::Construct VT1 parent= relZ=26931.2 globZ=26931.2
 	zmin=26550.2 zmax=27312.2
-Checking overlaps for volume HT1 ... OK! 
+**************************************************************************
+*** G4Exception: GeomVol1002
+***    severity: Warning
+***   issued by: G4PVPlacement::CheckOverlaps()
+*** description: Overlap with volume already placed !
+          Overlap is detected for volume Det9:0
+          with floor:0 volume's
+          local point (-1813.51,269.282,-33840.4), overlapping by at least: 30.2218 cm 
+NOTE: Reached maximum fixed number -1- of overlaps reports for this volume !
+**************************************************************************
+BLCMDvirtualdetector::Construct Det9 parent= relZ=27417.0 globZ=27405.3
+Checking overlaps for volume Det9 ... Checking overlaps for volume HT1 ... OK! 
 Checking overlaps for volume HT1 ... OK! 
 BLCMDgenericbend::Construct HT1 parent= relZ=27998.0 globZ=27998.0
 	zmin=27617.0 zmax=28379.0
@@ -1306,9 +1466,21 @@ BLCMDbox::Construct C_block parent= relZ=27417.0 globZ=27417.0
 Checking overlaps for volume D_block ... OK! 
 BLCMDbox::Construct D_block parent= relZ=27417.0 globZ=27417.0
 	zmin=26502.6 zmax=28331.4
+**************************************************************************
+*** G4Exception: GeomVol1002
+***    severity: Warning
+***   issued by: G4PVPlacement::CheckOverlaps()
+*** description: Overlap with volume already placed !
+          Overlap is detected for volume Det10:0
+          with floor:0 volume's
+          local point (1732.6,392.546,-32732.7), overlapping by at least: 17.8954 cm 
+NOTE: Reached maximum fixed number -1- of overlaps reports for this volume !
+***    printing: every 10-th occurrence
+**************************************************************************
+BLCMDvirtualdetector::Construct Det10 parent= relZ=28536.4 globZ=28528.4
 BLGroup::Construct Scraper2 parent= relZ=29236.4 globZ=0.0 length=1003.4
 	zmin=-501.7 zmax=501.7 width=1016.0 Height=3454.4
-Checking overlaps for volume Scraper2 ... OK! 
+Checking overlaps for volume Det10 ... Checking overlaps for volume Scraper2 ... OK! 
 	Parent pos=0.0,0.0,0.0 Relative pos=0.0,529.6,29236.4 Global pos=0.0,529.6,29236.4
 Checking overlaps for volume Scraper2_steel_left ... OK! 
 BLCMDbox::Construct Scraper2_steel_left parent=Scraper2 relZ=0.0 globZ=29236.4
@@ -1322,35 +1494,33 @@ BLCMDbox::Construct Scraper2_concrete_up parent=Scraper2 relZ=0.0 globZ=29236.4
 Checking overlaps for volume Scraper2_concrete_down ... OK! 
 BLCMDbox::Construct Scraper2_concrete_down parent=Scraper2 relZ=0.0 globZ=29236.4
 	zmin=28734.7 zmax=29738.1
-Checking overlaps for volume Mom_Coll ... OK! 
+BLCMDvirtualdetector::Construct Det11 parent= relZ=32011.6 globZ=32003.0
+BLCMDvirtualdetector::Construct Det12 parent= relZ=34088.0 globZ=34079.2
+Checking overlaps for volume Det11 ... Checking overlaps for volume Det12 ... Checking overlaps for volume Mom_Coll ... OK! 
 Checking overlaps for volume Mom_Coll ... OK! 
 BLCMDgenericbend::Construct Mom_Coll parent= relZ=33049.8 globZ=33049.8
 	zmin=32211.6 zmax=33888.0
-Checking overlaps for volume E_block ... OK! 
 BLCMDbox::Construct E_block parent= relZ=31678.2 globZ=31678.2
 	zmin=31221.0 zmax=32135.4
-Checking overlaps for volume E_block ... OK! 
+Checking overlaps for volume E_block ... Checking overlaps for volume E_block ... OK! 
 BLCMDbox::Construct E_block parent= relZ=31678.2 globZ=31678.2
 	zmin=31221.0 zmax=32135.4
 Checking overlaps for volume K_block ... OK! 
 BLCMDbox::Construct K_block parent= relZ=31678.2 globZ=31678.2
 	zmin=31221.0 zmax=32135.4
-Checking overlaps for volume K_block ... OK! 
 BLCMDbox::Construct K_block parent= relZ=31678.2 globZ=31678.2
 	zmin=31221.0 zmax=32135.4
-Checking overlaps for volume D_block ... OK! 
+Checking overlaps for volume K_block ... Checking overlaps for volume D_block ... OK! 
 BLCMDbox::Construct D_block parent= relZ=31678.2 globZ=31678.2
 	zmin=30763.8 zmax=32592.6
-Checking overlaps for volume D_block ... OK! 
 BLCMDbox::Construct D_block parent= relZ=31678.2 globZ=31678.2
 	zmin=30763.8 zmax=32592.6
-Checking overlaps for volume C_block ... OK! 
+Checking overlaps for volume D_block ... Checking overlaps for volume C_block ... OK! 
 BLCMDbox::Construct C_block parent= relZ=30763.8 globZ=30763.8
 	zmin=29849.4 zmax=31678.2
-Checking overlaps for volume D_block ... OK! 
 BLCMDbox::Construct D_block parent= relZ=31678.2 globZ=31678.2
 	zmin=30763.8 zmax=32592.6
-Checking overlaps for volume D_block ... OK! 
+Checking overlaps for volume D_block ... Checking overlaps for volume D_block ... OK! 
 BLCMDbox::Construct D_block parent= relZ=33049.8 globZ=33049.8
 	zmin=32135.4 zmax=33964.2
 Checking overlaps for volume D_block ... OK! 
@@ -1403,17 +1573,20 @@ BLCMDbox::Construct K_block parent= relZ=38355.8 globZ=38355.8
 Checking overlaps for volume J_block ... OK! 
 BLCMDbox::Construct J_block parent= relZ=36800.0 globZ=36800.0
 	zmin=34971.2 zmax=38628.8
-Checking overlaps for volume VT2 ... OK! 
+BLCMDvirtualdetector::Construct Det13 parent= relZ=36250.8 globZ=36236.4
+Checking overlaps for volume Det13 ... Checking overlaps for volume VT2 ... OK! 
 Checking overlaps for volume VT2 ... OK! 
 BLCMDgenericbend::Construct VT2 parent= relZ=36831.8 globZ=36831.8
 	zmin=36450.8 zmax=37212.8
-Checking overlaps for volume HT2 ... OK! 
+BLCMDvirtualdetector::Construct Det14 parent= relZ=37248.6 globZ=37233.8
+Checking overlaps for volume Det14 ... Checking overlaps for volume HT2 ... OK! 
 Checking overlaps for volume HT2 ... OK! 
 BLCMDgenericbend::Construct HT2 parent= relZ=37798.6 globZ=37798.6
 	zmin=37417.6 zmax=38179.6
+BLCMDvirtualdetector::Construct Det15 parent= relZ=38284.4 globZ=38269.1
 BLGroup::Construct Q4 parent= relZ=40008.4 globZ=0.0 length=3048.0
 	zmin=-1524.0 zmax=1524.0 width=331.0 Height=433.0
-Checking overlaps for volume Q4 ... OK! 
+Checking overlaps for volume Det15 ... Checking overlaps for volume Q4 ... OK! 
 	Parent pos=0.0,0.0,0.0 Relative pos=0.0,648.0,40008.4 Global pos=0.0,648.0,40008.4
 Checking overlaps for volume Q4steel ... OK! 
 BLCMDextrusion::Construct Q4steel parent=Q4 relZ=0.0 globZ=40008.4
@@ -1455,9 +1628,21 @@ Checking overlaps for volume Q4pipe_3in ... OK!
 BLCMDtubs::Construct Q4pipe_3in parent=Q4 relZ=0.0 globZ=40008.4
 	zmin=38484.4 zmax=41532.4 kill=0
 BLMappedMagnet::Construct QQM_field parent= relZ=40008.4
+**************************************************************************
+*** G4Exception: GeomVol1002
+***    severity: Warning
+***   issued by: G4PVPlacement::CheckOverlaps()
+*** description: Overlap with volume already placed !
+          Overlap is detected for volume Det16:0
+          with downstream_floor:0 volume's
+          local point (-492.61,-256.219,-2936.17), overlapping by at least: 4.85807 cm 
+NOTE: Reached maximum fixed number -1- of overlaps reports for this volume !
+***    printing: every 10-th occurrence
+**************************************************************************
+BLCMDvirtualdetector::Construct Det16 parent= relZ=41636.9 globZ=41620.6
 BLGroup::Construct MC6D3 parent= relZ=43360.9 globZ=0.0 length=3048.0
 	zmin=-1524.0 zmax=1524.0 width=406.0 Height=317.0
-Checking overlaps for volume MC6D3 ... OK! 
+Checking overlaps for volume Det16 ... Checking overlaps for volume MC6D3 ... OK! 
 	Parent pos=0.0,0.0,0.0 Relative pos=0.0,681.8,43360.9 Global pos=0.0,681.8,43360.9
 Checking overlaps for volume MC6D3steel_top_bottom ... OK! 
 BLCMDbox::Construct MC6D3steel_top_bottom parent=MC6D3 relZ=0.0 globZ=43360.9
@@ -1490,9 +1675,10 @@ Checking overlaps for volume MC6D3side_coil ... OK!
 BLCMDbox::Construct MC6D3side_coil parent=MC6D3 relZ=0.0 globZ=43361.9
 	zmin=41837.9 zmax=44885.9
 BLMappedMagnet::Construct MC6D_field parent= relZ=43360.9
+BLCMDvirtualdetector::Construct Det17 parent= relZ=44989.7 globZ=44972.6
 BLGroup::Construct Q5 parent= relZ=46713.7 globZ=0.0 length=3048.0
 	zmin=-1524.0 zmax=1524.0 width=585.0 Height=877.0
-Checking overlaps for volume Q5 ... OK! 
+Checking overlaps for volume Det17 ... Checking overlaps for volume Q5 ... OK! 
 	Parent pos=0.0,0.0,0.0 Relative pos=0.0,705.6,46713.7 Global pos=0.0,705.6,46713.7
 Checking overlaps for volume Q5steel ... OK! 
 BLCMDextrusion::Construct Q5steel parent=Q5 relZ=0.0 globZ=46713.7
@@ -1534,9 +1720,10 @@ BLMappedMagnet::Construct RQB_field parent= relZ=46713.7
 Checking overlaps for volume A_block ... OK! 
 BLCMDbox::Construct A_block parent= relZ=46713.7 globZ=46713.7
 	zmin=45570.7 zmax=47856.7
+BLCMDvirtualdetector::Construct Det18 parent= relZ=48342.5 globZ=48324.8
 BLGroup::Construct MC6D4 parent= relZ=50066.5 globZ=0.0 length=3048.0
 	zmin=-1524.0 zmax=1524.0 width=406.0 Height=317.0
-Checking overlaps for volume MC6D4 ... OK! 
+Checking overlaps for volume Det18 ... Checking overlaps for volume MC6D4 ... OK! 
 	Parent pos=0.0,0.0,0.0 Relative pos=0.0,720.5,50066.5 Global pos=0.0,720.5,50066.5
 Checking overlaps for volume MC6D4steel_top_bottom ... OK! 
 BLCMDbox::Construct MC6D4steel_top_bottom parent=MC6D4 relZ=0.0 globZ=50066.5
@@ -1572,9 +1759,10 @@ BLMappedMagnet::Construct MC6D_field parent= relZ=50066.5
 Checking overlaps for volume B_block ... OK! 
 BLCMDbox::Construct B_block parent= relZ=50066.5 globZ=50066.5
 	zmin=48923.5 zmax=51209.5
+BLCMDvirtualdetector::Construct Det19 parent= relZ=51695.3 globZ=51677.1
 BLGroup::Construct Q6 parent= relZ=53419.3 globZ=0.0 length=3048.0
 	zmin=-1524.0 zmax=1524.0 width=331.0 Height=433.0
-Checking overlaps for volume Q6 ... OK! 
+Checking overlaps for volume Det19 ... Checking overlaps for volume Q6 ... OK! 
 	Parent pos=0.0,0.0,0.0 Relative pos=0.0,724.8,53419.3 Global pos=0.0,724.8,53419.3
 Checking overlaps for volume Q6steel ... OK! 
 BLCMDextrusion::Construct Q6steel parent=Q6 relZ=0.0 globZ=53419.3
@@ -1762,18 +1950,6 @@ BLCMDbox::Construct L_block parent= relZ=90719.5 globZ=90719.5
 Checking overlaps for volume L_block ... OK! 
 BLCMDbox::Construct L_block parent= relZ=90719.5 globZ=90719.5
 	zmin=90262.3 zmax=91176.7
-Checking overlaps for volume JGG_h_steel ... OK! 
-BLCMDbox::Construct JGG_h_steel parent= relZ=98225.2 globZ=98225.2
-	zmin=97120.3 zmax=99330.1
-Checking overlaps for volume JGG_h_steel ... OK! 
-BLCMDbox::Construct JGG_h_steel parent= relZ=98225.2 globZ=98225.2
-	zmin=97120.3 zmax=99330.1
-Checking overlaps for volume JGG_v_steel ... OK! 
-BLCMDbox::Construct JGG_v_steel parent= relZ=98225.2 globZ=98225.2
-	zmin=97120.3 zmax=99330.1
-Checking overlaps for volume JGG_v_steel ... OK! 
-BLCMDbox::Construct JGG_v_steel parent= relZ=98225.2 globZ=98225.2
-	zmin=97120.3 zmax=99330.1
 Checking overlaps for volume Rosie_h_steel ... OK! 
 BLCMDbox::Construct Rosie_h_steel parent= relZ=104408.9 globZ=104408.9
 	zmin=103646.9 zmax=105170.9
@@ -1810,7 +1986,16 @@ BLCMDbox::Construct rosie_vcoil parent= relZ=103399.3 globZ=103399.3
 Checking overlaps for volume rosie_vcoil ... OK! 
 BLCMDbox::Construct rosie_vcoil parent= relZ=103399.3 globZ=103399.3
 	zmin=103151.6 zmax=103646.9
-Checking overlaps for volume Det21 ... OK! 
+BLCMDbox::Construct rosie_side_block parent= relZ=104408.9 globZ=104408.9
+	zmin=103646.9 zmax=105170.9
+BLCMDbox::Construct rosie_side_block parent= relZ=104408.9 globZ=104408.9
+	zmin=103646.9 zmax=105170.9
+Checking overlaps for volume rosie_side_block ... Checking overlaps for volume rosie_side_block ... Checking overlaps for volume rosie_vertical_block ... OK! 
+BLCMDbox::Construct rosie_vertical_block parent= relZ=104408.9 globZ=104408.9
+	zmin=103646.9 zmax=105170.9
+BLCMDbox::Construct rosie_vertical_block parent= relZ=104408.9 globZ=104408.9
+	zmin=103646.9 zmax=105170.9
+Checking overlaps for volume rosie_vertical_block ... Checking overlaps for volume Det21 ... OK! 
 BLCMDvirtualdetector::Construct Det21 parent= relZ=107603.0 globZ=107603.0
 Checking overlaps for volume target_slab_-2 ... OK! 
 BLCMDbox::Construct target_slab_-2 parent= relZ=108047.3 globZ=108047.3
@@ -2090,16 +2275,6 @@ BLCMDbox::Construct shielding_block_3shielding_block_concrete_top parent=shieldi
 	zmin=114245.5 zmax=115058.3
 Checking overlaps for volume FrontFace ... OK! 
 BLCMDvirtualdetector::Construct FrontFace parent= relZ=122583.0 globZ=122583.0
-=======================================================================
-======       Pre-compound/De-excitation Physics Parameters     ========
-=======================================================================
-Type of pre-compound inverse x-section              3
-Type of de-excitation inverse x-section             3
-Min excitation energy (keV)                         0.1
-Level density (1/MeV)                               0.1
-Time limit for long lived isomeres (ns)             1e+07
-Correlated gamma emission flag                      0
-=======================================================================
 
  FTFP_BERT : new threshold between BERT and FTFP is over the interval 
  for pions :   3 to 12 GeV
@@ -2111,6 +2286,109 @@ Correlated gamma emission flag                      0
 
 Geometry test nPoints=100 tolerance=0.002 mm:
 Testing geometry for children of group 'World':
+**************************************************************************
+*** G4Exception: Geometry Error
+***    severity: Warning
+***   issued by: geometry
+*** description: virtualdetector 'Det1' intersects box 'floor'
+**************************************************************************
+**************************************************************************
+*** G4Exception: Geometry Error
+***    severity: Warning
+***   issued by: geometry
+*** description: virtualdetector 'Det2' intersects box 'floor'
+**************************************************************************
+**************************************************************************
+*** G4Exception: Geometry Error
+***    severity: Warning
+***   issued by: geometry
+*** description: virtualdetector 'Det3' intersects box 'floor'
+**************************************************************************
+**************************************************************************
+*** G4Exception: Geometry Error
+***    severity: Warning
+***   issued by: geometry
+*** description: virtualdetector 'Det4' intersects box 'floor'
+**************************************************************************
+**************************************************************************
+*** G4Exception: Geometry Error
+***    severity: Warning
+***   issued by: geometry
+*** description: virtualdetector 'Det5' intersects box 'floor'
+**************************************************************************
+**************************************************************************
+*** G4Exception: Geometry Error
+***    severity: Warning
+***   issued by: geometry
+*** description: virtualdetector 'Det5' intersects box 'upstream_roof'
+**************************************************************************
+**************************************************************************
+*** G4Exception: Geometry Error
+***    severity: Warning
+***   issued by: geometry
+*** description: virtualdetector 'Det6' intersects box 'floor'
+**************************************************************************
+**************************************************************************
+*** G4Exception: Geometry Error
+***    severity: Warning
+***   issued by: geometry
+*** description: virtualdetector 'Det6' intersects box 'upstream_roof'
+**************************************************************************
+**************************************************************************
+*** G4Exception: Geometry Error
+***    severity: Warning
+***   issued by: geometry
+*** description: virtualdetector 'Det6' intersects box 'ds_wall'
+**************************************************************************
+**************************************************************************
+*** G4Exception: Geometry Error
+***    severity: Warning
+***   issued by: geometry
+*** description: virtualdetector 'Det7' intersects box 'floor'
+***    printing: every 10-th occurrence
+**************************************************************************
+**************************************************************************
+*** G4Exception: Geometry Error
+***    severity: Warning
+***   issued by: geometry
+*** description: virtualdetector 'Det9' intersects box 'D_block'
+***    printing: every 10-th occurrence
+**************************************************************************
+**************************************************************************
+*** G4Exception: Geometry Error
+***    severity: Warning
+***   issued by: geometry
+*** description: virtualdetector 'Det12' intersects box 'upstream_roof'
+***    printing: every 10-th occurrence
+**************************************************************************
+**************************************************************************
+*** G4Exception: Geometry Error
+***    severity: Warning
+***   issued by: geometry
+*** description: virtualdetector 'Det14' intersects box 'ds_wall'
+***    printing: every 10-th occurrence
+**************************************************************************
+**************************************************************************
+*** G4Exception: Geometry Error
+***    severity: Warning
+***   issued by: geometry
+*** description: virtualdetector 'Det15' intersects box 'ds_roof'
+***    printing: every 10-th occurrence
+**************************************************************************
+**************************************************************************
+*** G4Exception: Geometry Error
+***    severity: Warning
+***   issued by: geometry
+*** description: virtualdetector 'Det17' intersects box 'beam_shield'
+***    printing: every 10-th occurrence
+**************************************************************************
+**************************************************************************
+*** G4Exception: Geometry Error
+***    severity: Warning
+***   issued by: geometry
+*** description: virtualdetector 'Det18' intersects box 'ds_roof'
+***    printing: every 10-th occurrence
+**************************************************************************
 Testing geometry for children of group 'QQM':
 Testing geometry for children of group 'QQM':
 Testing geometry for children of group 'EPB':
@@ -2137,7 +2415,7 @@ Testing geometry for children of group 'collimator_ds':
 Testing geometry for children of group 'shielding_block':
 Testing geometry for children of group 'shielding_block':
 Testing geometry for children of group 'shielding_block':
-Total geometry errors = 0  0 seconds
+Total geometry errors = 77  0 seconds
 
 ================== Prepare Visualization ==================
 Stochastic processes are enabled.
@@ -2185,9 +2463,7 @@ End of Event User Vis Actions: none
 End of Run User Vis Actions: none
 
 Some /vis commands (optionally) take a string to specify colour.
-Available colours:
-  black, blue, brown, cyan, gray, green, grey, magenta, red, white, yellow
-
+"/vis/list" to see available colours.
 
 Selected visualization viewer: Qt
 BLVisManager init: /vis/open OGLSQt
@@ -2229,26 +2505,16 @@ Geant4 User Interface (null)
     /vis/viewer/set/background 1 1 1
     /vis/viewer/set/background 1 1 1
     /vis/viewer/set/background 1 1 1
+WARNING: SetUserAction is deprecated. Use RegisterRunDurationUserVisAction.
 WARNING: No extent set for user vis action "SetUserAction".
 WARNING: User Vis Action extent is null.
-WARNING: For some reason, possibly mentioned above, it has not been
-  possible to add to the scene.
-fieldVoxels: nx=10 ny=7 nz=544, 38080 voxels, 25 fields
-fieldVoxels: max field count is 2 fields, # voxels >5: 0, >10: 0, >20: 0
-G4VisManager: Using G4TrajectoryDrawByCharge as fallback trajectory model.
-See commands in /vis/modeling/trajectories/ for other options.
-### G4LevelReader: broken level 21 E(MeV)= 1.9355 < 1.9355000257492 for isotope Z= 21 A= 45 level energy increased
-WARNING: 1000 events have been kept for refreshing and/or reviewing.
-
-  "/vis/reviewKeptEvents" to review them one by one.
-  "/vis/viewer/flush" or "/vis/viewer/rebuild" to see them accumulated.
 
 Graphics systems deleted.
 Visualization Manager deleting...
 
-Exceptions: 0 Fatal, 0 Events Aborted, 0 Stuck Tracks (stopped), 17 Warnings
+Exceptions: 0 Fatal, 0 Events Aborted, 0 Stuck Tracks (stopped), 120 Warnings
       1 times: GeomSolids1001
+     26 times: GeomVol1002
+     77 times: Geometry Error
      16 times: No rename
 g4beamline: simulation complete
-Error: cannot open file "iostream"  (tmpfile)(2)
-*** Interpreter error recovered ***
