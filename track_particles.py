@@ -23,9 +23,11 @@ import pickle
 
 # define selection
 def PassSelection(particle):
-    if particle.PDG == 2212 and particle.Pz > 80000:
-    #if abs(particle.PDG) == 13 and particle.Y > 200 and particle.Z > -1000:
-    #if particle.PDG == 211 and particle.Y > 200 and particle.Z > -1000:
+    #if particle.PDG == 2212 and particle.Pz > 80000:
+    #if particle.PDG == 2212 and particle.Y > 200 and particle.X > -1000:
+    if abs(particle.PDG) == 13 and particle.Y > 200 and particle.X > -1000:
+    #if particle.PDG == 211 and particle.Y > 200 and particle.X > -1000:
+    #if particle.PDG == -211 and particle.Y > 200 and particle.X > -1000:
         return True
     return False
 
@@ -36,7 +38,8 @@ track_upstream = True
 # track_upstream = False
 
 # output file name
-outtag = "highp-protons-detplume-us"
+# selection (highp, plumeloc etc) - species - start (detplume, collimator etc) - direction (us, ds)
+outtag = "plumeloc-mu-detplume-us"
 
 # define how much data to analyze
 num_batches = 1 # 5
@@ -58,8 +61,13 @@ while batch_start < (num_batches*jobs_per_batch*events_per_job):
     while job_start < (batch_start+(jobs_per_batch*events_per_job)):
         print "Initial particle selection: {}%" \
             .format(float(job_start*100)/(float(num_batches*jobs_per_batch*events_per_job)))
+        if not os.path.isfile("{}/{}/{}_{}.txt" \
+                                  .format(base_dir, batch_start, start_detector, job_start)):
+            job_start += events_per_job
+            continue
         with open("{}/{}/{}_{}.txt" \
                       .format(base_dir, batch_start, start_detector, job_start)) as inFile:
+            print inFile
             for line in inFile:
                 # x y z Px Py Pz t PDGid EventID TrackID ParentID Weight
                 if line.startswith('#'):
@@ -101,8 +109,13 @@ while batch_start < (num_batches*jobs_per_batch*events_per_job):
         print "Tracking upstream/downstream particles: {}%" \
             .format(float(job_start*100)/(float(num_batches*jobs_per_batch*events_per_job)))
         for detector in detector_list:
+            if not os.path.isfile("{}/{}/{}_{}.txt" \
+                                      .format(base_dir, batch_start, detector, job_start)):
+                job_start += events_per_job
+                continue
             with open("{}/{}/{}_{}.txt" \
                           .format(base_dir, batch_start, detector, job_start)) as inFile:
+                print inFile
                 for line in inFile:
                     # x y z Px Py Pz t PDGid EventID TrackID ParentID Weight
                     if line.startswith('#'):

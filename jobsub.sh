@@ -2,7 +2,7 @@
 
 JOBS_PER_BATCH=1000
 EVENTS_PER_JOB=400000
-OUTPUT_DIR='/pnfs/nova/persistent/users/wallbank/testbeam/plume_sim/full_fields/64GeV/mc6mc7/'
+OUTPUT_DIR='/pnfs/nova/scratch/users/wallbank/testbeam_sim/200MeVcut/64GeV-12mm-correct/'
 
 if [ "$#" == 1 ] && [[ "$1" = "nova" ]]; then
     for BATCH in {0..4}
