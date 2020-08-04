@@ -299,15 +299,6 @@ place B_block z=53419.28-1.5*$ft y=$floor+$ds_floor_height+0.5*3.0*$ft
 place L_block z=53419.28 y=$floor+0.5*$ft
 place L_block z=53419.28 y=$floor+1.5*$ft
 
-box CollV height=10.5*$ft width=1800 length=1800 color=0.6,0.6,0.6  material=CONCRETE kill=$kill_aperture
-place CollV z=58000 x=1204.8 y=$floor+0.5*10.5*$ft
-place CollV z=58000 x=-1204.8 y=$floor+0.5*10.5*$ft
-
-box CollH_lower height=1800 width=609.6 length=1800 color=0.6,0.6,0.6  material=CONCRETE kill=$kill_aperture
-place CollH_lower z=58000 y=-420+7.1*$inch
-box CollH_upper height=1800-1010 width=609.6 length=1800 color=0.6,0.6,0.6  material=CONCRETE kill=$kill_aperture
-place CollH_upper z=58000 y=1929.6+7.1*$inch-505
-
 genericquad HeTube gradient=0 fringe=0 apertureRadius=6*$inch ironRadius=6*$inch+1 fieldMaterial=He ironColor=0.6,0.6,0.6
 tubs mylar radius=6*$inch length=0.0762 color=0,0.8,0 material=MYLAR kill=$kill_aperture
 param He_length=45500.0
