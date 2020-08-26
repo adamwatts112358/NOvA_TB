@@ -74,6 +74,7 @@ box M_block  width=1.5*$ft height=1.5*$ft length=1.5*$ft material=CONCRETE color
 param floor=-1280
 
 #------------Target&Cage,Absorber,Collimator----------------------
+#zntuple z=100 format=ascii file=1_$first.txt
 box Target  width=5 height=5 length=200 material=Cu color=1.0,0.75,0.0  # nominal
 #box Target  width=10 height=10 length=200 material=Cu color=1.0,0.75,0.0
 place Target rename=MC6T1 z=100 rotation=x-1.31
@@ -153,29 +154,29 @@ place ds_roof x=0 y=$floor+10.5*$ft+3*$ft z=36831.7784+0.5*$ds_floor_length+7.5*
 #-----------------------------------------------------------------------------------
 genericbend 4430 fieldHeight=101.6 fieldWidth=101.6 fieldLength=762 fieldMaterial=AIR ironLength=762 ironHeight=295 ironWidth=397 ironColor=$trimColor fringe=0 kill=$kill_aperture
 
-#zntuple z=6432.19-3048/2-$det_space format=ascii file=1_$first.txt
+#zntuple z=6432.19-3048/2-$det_space format=ascii file=2_$first.txt
 place QQM rename=Q1_1 z=6432.19 y=147.5 rotation=x-1.31
 place QQM_field z=6432.19 y=147.5 rotation=x-1.31 current=$mc6q1i
 
-#zntuple z=9884.08-3048/2-$det_space format=ascii file=2_$first.txt
+#zntuple z=9884.08-3048/2-$det_space format=ascii file=3_$first.txt
 place QQM rename=Q1_2 z=9884.08 y=224.3 rotation=x-1.31
 place QQM_field z=9884.08 y=224.3 rotation=x-1.31 current=$mc6q1i
 
-#zntuple z=13359.7144-3048/2-$det_space format=ascii file=3_$first.txt
+#zntuple z=13359.7144-3048/2-$det_space format=ascii file=4_$first.txt
 place EPB rename=MC6D1 z=13359.7144 y=299.6 rotation=z90,x-1.15
 place MC6D_field z=13359.7144 y=299.6 rotation=z90,x-1.15
 
-#zntuple z=16711.9-3048/2-$det_space format=ascii file=4_$first.txt
+#zntuple z=16711.9-3048/2-$det_space format=ascii file=5_$first.txt
 place RQB rename=Q2 z=16711.9 y=361.8 rotation=x-0.99
 place RQB_field z=16711.9 y=361.8 rotation=x-0.99 current=$mc6q2i
 place A_block z=16711.9 y=$floor+9*$inch
 place A_block z=16711.9 y=$floor+1.5*$ft+9*$inch
 
-#zntuple z=20063.4-3048/2-$det_space format=ascii file=5_$first.txt
+#zntuple z=20063.4-3048/2-$det_space format=ascii file=6_$first.txt
 place EPB rename=MC6D2 z=20064.4 y=414.8328 rotation=z90,x-0.8194
 place MC6D_field z=20064.4 y=414.8328 rotation=z90,x-0.8194
 
-#zntuple z=20063.4+3048/2+$det_space format=ascii file=6_$first.txt
+#zntuple z=20063.4+3048/2+$det_space format=ascii file=7_$first.txt
 group Scraper1
   box Scrap_Steel_Side height=50.799 width=441.299 length=997 color=$scraperColor material=Fe kill=$kill_aperture
   box Scrap_Steel_Bottom height=25.399 width=914.4 length=997 color=$scraperColor material=Fe kill=$kill_aperture
@@ -193,13 +194,13 @@ endgroup
 place Scraper1 rename=Scraper1 y=445.9224 z=22393.072
 #----------------
 
-#zntuple z=24721.744-3048/2-$det_space format=ascii file=7_$first.txt
+#zntuple z=24721.744-3048/2-$det_space format=ascii file=8_$first.txt
 place QQM rename=Q3 z=24721.744 y=472.745 rotation=x-0.653
 place QQM_field z=24721.744 y=472.745 rotation=x-0.653 current=$mc6q3i
 
-#zntuple z=26931.24-762/2-$det_space format=ascii file=8_$first.txt
+#zntuple z=26931.24-762/2-$det_space format=ascii file=9_$first.txt
 place 4430 rename=VT1 z=26931.24 y=499.871 By=0 rotation=z90,x-0.917
-#zntuple z=27998.04-762/2-$det_space format=ascii file=9_$first.txt
+#zntuple z=27998.04-762/2-$det_space format=ascii file=10_$first.txt
 place 4430 rename=HT1 z=27998.04 y=515.417 rotation=x-0.917 By=0
 place C_block z=27998.04-762/2-$det_space y=$floor+0.5*3.0*$ft
 place D_block z=27998.04-762/2-$det_space y=$floor+0.5*3.0*$ft+2.25*$ft
@@ -214,14 +215,14 @@ group Scraper2
   place Scrap2_ConcrUp rename=+_concrete_up y=508. z=501.7
   place Scrap2_ConcrDown rename=+_concrete_down y=-965.2+3*$inch z=501.7
 endgroup
-#zntuple z=29236.4166-700 format=ascii file=10_$first.txt
+#zntuple z=29236.4166-700 format=ascii file=11_$first.txt
 #place Scraper2 rename=Scraper2 y=529.6234 z=29236.4166 rotation=x-0.66
 place Scraper2 rename=Scraper2 y=529.6234 z=29236.4166
 #----------------
 
-#zntuple z=33049.7944-1676.4/2-$det_space format=ascii file=11_$first.txt
+#zntuple z=33049.7944-1676.4/2-$det_space format=ascii file=12_$first.txt
 
-#zntuple z=33049.7944+1676.4/2+$det_space format=ascii file=12_$first.txt
+#zntuple z=33049.7944+1676.4/2+$det_space format=ascii file=13_$first.txt
 
 #---Momentum collimator----
 param mom_coll_length=1676.4
@@ -268,30 +269,30 @@ place K_block z=36831.7784+0.5*3*$ft y=$floor+$ds_floor_height+0.5*$ft
 place K_block z=36831.7784+5*$ft y=$floor+$ds_floor_height+0.5*$ft
 place J_block z=36831.7784-1.25*$inch y=$floor+$ds_floor_height+1.75*$ft
 
-#zntuple z=36831.7784-762/2-$det_space format=ascii file=13_$first.txt
+#zntuple z=36831.7784-762/2-$det_space format=ascii file=14_$first.txt
 place 4430 rename=VT2 z=36831.7784 y=610.2096 By=0 rotation=z90,x-0.664 kill=$kill_aperture
-#zntuple z=37798.5784-700/2-$det_space format=ascii file=14_$first.txt
+#zntuple z=37798.5784-700/2-$det_space format=ascii file=15_$first.txt
 place 4430 rename=HT2 z=37798.5784 y=622.7064 rotation=x-0.665 By=0 kill=$kill_aperture
-#zntuple z=40008.38-3048/2-$det_space format=ascii file=15_$first.txt
+#zntuple z=40008.38-3048/2-$det_space format=ascii file=16_$first.txt
 
 place QQM rename=Q4 z=40008.38 y=648.0048 rotation=x-0.659
 place QQM_field z=40008.38 y=648.0048 rotation=x-0.659 current=$mc6q4i
 
-#zntuple z=43360.88-3048/2-$det_space format=ascii file=16_$first.txt
+#zntuple z=43360.88-3048/2-$det_space format=ascii file=17_$first.txt
 place EPB rename=MC6D3 z=43360.88 y=681.8376 rotation=z90,x-0.4927
 place MC6D_field z=43360.88 y=681.8376 rotation=z90,x-0.4927
 
-#zntuple z=46713.67-3048/2-$det_space format=ascii file=17_$first.txt
+#zntuple z=46713.67-3048/2-$det_space format=ascii file=18_$first.txt
 place RQB rename=Q5 z=46713.67 y=705.612 rotation=x-0.327
 place RQB_field z=46713.67 y=705.612 rotation=x-0.327 current=$mc6q5i
 
 place A_block z=46713.67 y=$floor+$ds_floor_height+0.5*1.5*$ft
-#zntuple z=50066.48-3048/2-$det_space format=ascii file=18_$first.txt
+#zntuple z=50066.48-3048/2-$det_space format=ascii file=19_$first.txt
 place EPB rename=MC6D4 z=50066.48 y=720.5472 rotation=z90,x-0.166
 place MC6D_field z=50066.48 y=720.5472 rotation=z90,x-0.166
 
 place B_block z=50066.48 y=$floor+$ds_floor_height+0.5*3.0*$ft
-#zntuple z=53419.28-3048/2-$det_space format=ascii file=19_$first.txt
+#zntuple z=53419.28-3048/2-$det_space format=ascii file=20_$first.txt
 place QQM rename=Q6 z=53419.28 y=724.81448
 place QQM_field z=53419.28 y=724.8144 current=$mc6q6i
 
@@ -306,7 +307,7 @@ place HeTube fieldLength=$He_length ironLength=$He_length x=0 z=62000+0.5*$He_le
 place mylar z=62000-2*0.0762 y=724.8144
 place mylar z=62000+$He_length+0.0762 y=724.8144
 
-zntuple z=62000-1000 format=ascii file=20_$first.txt
+zntuple z=62000-1000 format=ascii file=21_$first.txt
 
 #------------Final scraper block in MC6---------------
 # Using DS end of Q6 as z reference
@@ -414,6 +415,8 @@ place JGG_v_steel x=0.5*($JGG_hap+$JGG_steel_width) y=$JGG_y z=$JGG_z
 place JGG_v_steel x=-0.5*($JGG_hap+$JGG_steel_width) y=$JGG_y z=$JGG_z
 #-----------------------------------------
 
+zntuple z=$JGG_z+3000 format=ascii file=22_$first.txt
+
 #-------- Rosie -------------
 param Rosie_z=$translatez-400-86*$inch-0.5*(60+19.5)*$inch
 param Rosie_y=$translatey
@@ -456,7 +459,7 @@ place rosie_vcoil x=36*$inch+0.5*9*$inch y=$translatey z=$Rosie_z-0.5*60*$inch-0
 
 #----------------------------------------
 
-zntuple z=$translatez-400 format=ascii file=21_$first.txt
+zntuple z=$translatez-400 format=ascii file=23_$first.txt
 
 # NOvA TB target
 box slab height=31.75 length=209.55 width=6.35 material=Cu color=1.0,0.75,0.0 kill=$kill_aperture
@@ -492,13 +495,13 @@ group wire_chamber
 endgroup
 
 place wire_chamber rename=wire_chamber_1 x=-455.74168439999994 y=0.5353557999999999+$translatey z=1591.0148774+$translatez rotation=y-16.0
-zntuple z=1535+$translatez format=ascii file=22_$first.txt
+zntuple z=1535+$translatez format=ascii file=24_$first.txt
 place wire_chamber rename=wire_chamber_2 x=-859.9917013999999 y=0.9007093999999999+$translatey z=2998.8696944+$translatez rotation=y-16.0
-zntuple z=2945+$translatez format=ascii file=23_$first.txt
+zntuple z=2945+$translatez format=ascii file=25_$first.txt
 place wire_chamber rename=wire_chamber_3 x=-1352.8517012 y=0.0741172+$translatey z=7369.4469578+$translatez rotation=y0.0
-zntuple z=7335+$translatez format=ascii file=24_$first.txt
+zntuple z=7335+$translatez format=ascii file=26_$first.txt
 place wire_chamber rename=wire_chamber_4 x=-1353.8649072 y=0.3144012+$translatey z=10143.3251286+$translatez rotation=y0.0
-zntuple z=10115+$translatez format=ascii file=25_$first.txt
+zntuple z=10115+$translatez format=ascii file=27_$first.txt
 
 tubs mylar_window radius=76.19999999999999 length=0.0762 color=0,0.8,0 material=MYLAR kill=$kill_aperture
 
@@ -607,4 +610,4 @@ place shielding_block rename=shielding_block_3 x=-1819.981247 y=131.680508799999
 
 #virtualdetector NovaDetector width=3038.3356249999997 height=3038.3356249999997 length=1 color=0,0,0
 #place NovaDetector rename=FrontFace x=-1374.4731770833332 y=76.1231770833333+$translatey z=14580+$translatez format=ascii file=26_$first.txt
-zntuple z=14580+$translatez format=ascii file=26_$first.txt
+zntuple z=14580+$translatez format=ascii file=28_$first.txt
