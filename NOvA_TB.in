@@ -300,8 +300,8 @@ place B_block z=53419.28-1.5*$ft y=$floor+$ds_floor_height+0.5*3.0*$ft
 place L_block z=53419.28 y=$floor+0.5*$ft
 place L_block z=53419.28 y=$floor+1.5*$ft
 
-genericquad HeTube gradient=0 fringe=0 apertureRadius=6*$inch ironRadius=6*$inch+1 fieldMaterial=He ironColor=0.6,0.6,0.6
-tubs mylar radius=6*$inch length=0.0762 color=0,0.8,0 material=MYLAR kill=$kill_aperture
+genericquad HeTube gradient=0 fringe=0 apertureRadius=3*$inch ironRadius=3*$inch+1 fieldMaterial=He ironColor=0.6,0.6,0.6
+tubs mylar radius=3*$inch length=0.0762 color=0,0.8,0 material=MYLAR kill=$kill_aperture
 param He_length=45500.0
 place HeTube fieldLength=$He_length ironLength=$He_length x=0 z=62000+0.5*$He_length y=724.8144
 place mylar z=62000-2*0.0762 y=724.8144
@@ -445,8 +445,7 @@ place rosie_vcoil x=36*$inch+0.5*9*$inch y=$translatey z=$Rosie_z+0.5*60*$inch+0
 place rosie_vcoil x=-36*$inch-0.5*9*$inch y=$translatey z=$Rosie_z-0.5*60*$inch-0.5*19.5*$inch
 place rosie_vcoil x=36*$inch+0.5*9*$inch y=$translatey z=$Rosie_z-0.5*60*$inch-0.5*19.5*$inch
 
-
-# ### Shielding inside Rosie aperture for plume mitigation
+#-------- Shielding inside Rosie -------------
 # param rosie_shielding_width=24.0*$inch
 # box rosie_side_block width=$rosie_shielding_width height=36*$inch length=$Rosie_steel_length material=Fe color=0.6,0.6,0.6 kill=$kill_aperture
 # place rosie_side_block x=-6.25*$inch-0.5*$rosie_shielding_width+0.325*$inch y=$Rosie_y z=$Rosie_z
@@ -457,6 +456,34 @@ place rosie_vcoil x=36*$inch+0.5*9*$inch y=$translatey z=$Rosie_z-0.5*60*$inch-0
 # place rosie_vertical_block x=0 y=$Rosie_y-(6.00*$inch+0.5*$rosie_shielding_height) z=$Rosie_z
 # place rosie_vertical_block x=0 y=$Rosie_y+(6.00*$inch+0.5*$rosie_shielding_height) z=$Rosie_z
 
+#-------- Shielding between JGG and Rosie -------------
+param z_shielding=$JGG_z+3*$ft
+
+# #6 ft. long
+# place C_block z=$z_shielding+6*$ft x=0 y=724.8144+2*$ft rotation=y90
+# place C_block z=$z_shielding+9*$ft x=0 y=724.8144+2*$ft rotation=y90
+# place C_block z=$z_shielding+7.5*$ft x=1.5*$ft+6*$inch y=724.8144-1*$ft
+# place C_block z=$z_shielding+7.5*$ft x=-1.5*$ft-6*$inch y=724.8144-1*$ft
+# place C_block z=$z_shielding+6*$ft x=0 y=724.8144-4.0*$ft rotation=y90
+# place C_block z=$z_shielding+9*$ft x=0 y=724.8144-4.0*$ft rotation=y90
+# place L_block z=$z_shielding+6*$ft x=0 y=724.8144-1*$ft-0.75*$ft rotation=z90
+# place L_block z=$z_shielding+9*$ft x=0 y=724.8144-1*$ft-0.75*$ft rotation=z90
+# # Simulate hand-stack to cover the rest of the gap under the pipe
+# box handstack width=1*$ft height=8*$inch length=6*$ft material=CONCRETE color=0.6,0.6,0.6 kill=$kill_aperture
+# place handstack z=$z_shielding+7.5*$ft x=0 y=724.8144-8.0*$inch
+
+# # Additions to make the shielding 9ft. long instead
+# # Un-comment all of the following for 9 ft.
+# box short_C width=3*$ft height=3*$ft length=3*$ft material=CONCRETE color=0.6,0.6,0.6 kill=$kill_aperture
+# place short_C z=$z_shielding+3*$ft x=1.5*$ft y=724.8144+2*$ft
+# place short_C z=$z_shielding+3*$ft x=-1.5*$ft y=724.8144+2*$ft
+# place short_C z=$z_shielding+3*$ft x=1.5*$ft+6*$inch y=724.8144-1*$ft
+# place short_C z=$z_shielding+3*$ft x=-1.5*$ft-6*$inch y=724.8144-1*$ft
+# place short_C z=$z_shielding+3*$ft x=1.5*$ft y=724.8144-4*$ft
+# place short_C z=$z_shielding+3*$ft x=-1.5*$ft y=724.8144-4*$ft
+# place L_block z=$z_shielding+3*$ft x=0 y=724.8144-1*$ft-0.75*$ft rotation=z90
+# box handstack2 width=1*$ft height=8*$inch length=3*$ft material=CONCRETE color=0.6,0.6,0.6 kill=$kill_aperture
+# place handstack2 z=$z_shielding+3*$ft x=0 y=724.8144-8.0*$inch
 #----------------------------------------
 
 zntuple z=$translatez-400 format=ascii file=23_$first.txt
