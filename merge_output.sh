@@ -13,7 +13,7 @@ if [ "$#" -ne 1 ] && [ "$#" -ne 2 ]; then
 fi
 
 if [ "$2" = "all" ]; then
-    for det in $(seq 20 26); do
+    for det in $(seq 28 28); do
 	echo "Merging detector $det files into $1/${det}_all.txt"
 	touch $1/${det}_all.txt
 	chmod +w $1/${det}_all.txt
@@ -21,7 +21,7 @@ if [ "$2" = "all" ]; then
     done
 else
     for dir in `ls $1`; do
-	for det in $(seq 20 26); do
+	for det in $(seq 28 28); do
 	    echo "Merging detector $det files into $1/${dir}/${det}_all.txt"
 	    touch $1/${dir}/${det}_all.txt
 	    chmod +w $1/${dir}/${det}_all.txt

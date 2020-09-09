@@ -46,8 +46,8 @@ def FormatPlot(plt, title, xlabel, ylabel, xmin, xmax, ymin, ymax, color, log, d
             else: mean = 0
             plt.axvline(x=mean-1300, color='r')
             plt.axvline(x=mean+1300, color='r')
-            plt.axvline(x=mean-200, color='black')
-            plt.axvline(x=mean+200, color='black')
+            plt.axvline(x=mean-100, color='black')
+            plt.axvline(x=mean+100, color='black')
         else:
             nova_face = patches.Rectangle((-1374.47-1300,-1300),2600,2600,linewidth=3,edgecolor='r',facecolor='none')
             tertiary_spot = patches.Rectangle((-1374.47-100,-100),200,200,linewidth=3,edgecolor='black',facecolor='none')
@@ -82,6 +82,7 @@ def plotDet(det_num, filename, ymean, plotlim):
     px = {}
     py = {}
     pz = {}
+    t = {}
     for pdg in [-1,2212,211,-211,13,-13]:
         for mombin in [-1,0,1,2]:
             x[ParticleProperties(pdg, mombin)] = []
@@ -90,6 +91,7 @@ def plotDet(det_num, filename, ymean, plotlim):
             px[ParticleProperties(pdg, mombin)] = []
             py[ParticleProperties(pdg, mombin)] = []
             pz[ParticleProperties(pdg, mombin)] = []
+            t[ParticleProperties(pdg, mombin)] = []
 
     # read in the particles from the text files
     with open(filename,'r') as f:
@@ -118,6 +120,7 @@ def plotDet(det_num, filename, ymean, plotlim):
                         px[properties].append(float(line_split[3]))
                         py[properties].append(float(line_split[4]))
                         pz[properties].append(pz_line)
+                        t[properties].append(float(line_split[6]))
 
     # Plotting
     markersize = 8.0
@@ -130,7 +133,7 @@ def plotDet(det_num, filename, ymean, plotlim):
     pdgColors = {-1:'#000000',2212:'#004C97',211:'#36573B',-211:'#78BE20',13:'#AF272F',-13:'#643335'}
     momBinLabels = {-1:'all',0:'<40 GeV',1:'40-80 GeV',2:'>80 GeV'}
 
-    if det_num in [24,25,26]:
+    if det_num in [26,27,28]:
         xmean = -1374.4731770833332
     else:
         xmean = 0.0
@@ -171,15 +174,11 @@ def plotDet(det_num, filename, ymean, plotlim):
             plt.scatter(x[ParticleProperties(pdg, momBin)],y[ParticleProperties(pdg, momBin)],c=pz[ParticleProperties(pdg, momBin)],
                         marker='o',s=markersize,lw=0,label='{} ({})'.format(pdgLabels[pdg], momBinLabels[momBin]),alpha=alpha,cmap=colormap)
             FormatPlot(plt, '{} ({}): {:.2e}\n({} tertiary)'.format(pdgLabels[pdg], momBinLabels[momBin], plot_integral, tertiary_integral),
-                       'x [mm]', 'y [mm]', xmean-plotlim, xmean+plotlim, ymean-plotlim, ymean+plotlim, True, False, det_num==26, bgcolor)
+                       'x [mm]', 'y [mm]', xmean-plotlim, xmean+plotlim, ymean-plotlim, ymean+plotlim, True, False, det_num==28, bgcolor)
     plt.tight_layout()
     plt.subplots_adjust(top=0.92)
     plt.savefig('./figs/p_bin_particles_{}.png'.format(det_num))
     plt.close()
-
-    # Plots for just detector face
-    if det_num != 26:
-        return
 
     # Plot occupancy/hit density -- 2D
     fig = plt.figure(figsize=(20, 12))
@@ -196,7 +195,7 @@ def plotDet(det_num, filename, ymean, plotlim):
                    range=[[xmean-plotlim, xmean+plotlim], [ymean-plotlim, ymean+plotlim]])
         FormatPlot(plt, '{}: {:.2e} (Tertiary: {} (all), {} (<2 GeV))' \
                        .format(pdgLabels[pdg], plot_integral, tertiary_integral, tertiary_integral_mom),
-                   'x [mm]', 'y [mm]', xmean-plotlim, xmean+plotlim, ymean-plotlim, ymean+plotlim, True, False, True, bgcolor)
+                   'x [mm]', 'y [mm]', xmean-plotlim, xmean+plotlim, ymean-plotlim, ymean+plotlim, True, False, det_num==28, bgcolor)
     plt.tight_layout()
     plt.subplots_adjust(top=0.92)
     plt.savefig('./figs/xy_2d_particles_{}.png'.format(det_num))
@@ -214,7 +213,7 @@ def plotDet(det_num, filename, ymean, plotlim):
         plt.hist(x[ParticleProperties(pdg, -1)], bins=density_bins, range=[xmean-plotlim, xmean+plotlim])
         FormatPlot(plt, '{}: {:.2e} (Tertiary: {} (all), {} (<2 GeV))' \
                        .format(pdgLabels[pdg], plot_integral_x, tertiary_integral_x, tertiary_integral_mom_x),
-                   'x [mm]', '', xmean-plotlim, xmean+plotlim, -1, -1, False, False, True, bgcolor)
+                   'x [mm]', '', xmean-plotlim, xmean+plotlim, -1, -1, False, False, det_num==28, bgcolor)
         plot_integral_y,tertiary_integral_y,tertiary_integral_mom_y \
             = PlotIntegral1D(y[ParticleProperties(pdg, -1)],
                              pz[ParticleProperties(pdg, -1)],
@@ -223,7 +222,7 @@ def plotDet(det_num, filename, ymean, plotlim):
         plt.hist(y[ParticleProperties(pdg, -1)], bins=density_bins, range=[ymean-plotlim, ymean+plotlim])
         FormatPlot(plt, '{}: {:.2e} (Tertiary: {} (all), {} (<2 GeV))' \
                        .format(pdgLabels[pdg], plot_integral_y, tertiary_integral_y, tertiary_integral_mom_y),
-                   'y [mm]', '', ymean-plotlim, ymean+plotlim, -1, -1, False, False, True, bgcolor)
+                   'y [mm]', '', ymean-plotlim, ymean+plotlim, -1, -1, False, False, det_num==28, bgcolor)
     plt.tight_layout()
     plt.subplots_adjust(top=0.92)
     plt.savefig('./figs/xy_1d_particles_{}.png'.format(det_num))
@@ -244,10 +243,22 @@ def plotDet(det_num, filename, ymean, plotlim):
                        range=[[xmean-plotlim, xmean+plotlim], [ymean-plotlim, ymean+plotlim]])
             FormatPlot(plt, '{} ({}): {:.2e}\n({} tertiary)' \
                 .format(pdgLabels[pdg], momBinLabels[momBin], plot_integral, tertiary_integral),
-                       'x [mm]', 'y [mm]', xmean-plotlim, xmean+plotlim, ymean-plotlim, ymean+plotlim, True, False, True, bgcolor)
+                       'x [mm]', 'y [mm]', xmean-plotlim, xmean+plotlim, ymean-plotlim, ymean+plotlim, True, False, det_num==28, bgcolor)
     plt.tight_layout()
     plt.subplots_adjust(top=0.92)
     plt.savefig('./figs/xy_bin_particles_{}.png'.format(det_num))
+    plt.close()
+
+    # Plot time
+    fig = plt.figure(figsize=(20, 12))
+    plt.suptitle('Detector {}'.format(det_num),fontsize=16)
+    for pdgIt,pdg in enumerate([-1,2212,211,-211,13,-13]):
+        plt.subplot2grid((2,3), (pdgIt%2,int(pdgIt/2)), rowspan=1, colspan=1)
+        plt.hist(t[ParticleProperties(pdg, -1)], bins=100, range=[300,500])
+        FormatPlot(plt, '{}'.format(pdgLabels[pdg]), 't [ns]', '', 300, 500, -1, -1, False, False, False, bgcolor)
+    plt.tight_layout()
+    plt.subplots_adjust(top=0.92)
+    plt.savefig('./figs/t_particles_{}.png'.format(det_num))
     plt.close()
 
 
@@ -257,10 +268,13 @@ if len(sys.argv) != 2:
   These files are the text files produced from g4bl, named <det_number>_all.txt.'''
     exit(1)
 
-y_array = np.asarray([147.5, 224.3, 299.6, 361.8, 414.8328, 414.8328, 472.745, 499.871, 515.417, 529.6234, 568.15, 568.15, 610.2096, 622.7064, 648.0048, 681.8376, 705.612, 720.5472, 724.8144, 724.8144, 724.8144, 724.8144, 724.8144, 724.8144, 724.8144, 724.8144])-724.8144
+y_array = np.asarray([147.5, 224.3, 299.6, 361.8, 414.8328, 414.8328, 472.745, 499.871, 515.417, 529.6234, 568.15, 568.15, 610.2096, 622.7064, 648.0048, 681.8376, 705.612, 720.5472, 724.8144, 724.8144, 724.8144, 724.8144, 724.8144, 724.8144, 724.8144, 724.8144, 724.8144, 724.8144])-724.8144
 #plotlim_array = [2.0E2,2.0E2,2.0E2,2.0E2,2.0E2,2.0E2,2.0E2,2.0E2,2.0E2,2.0E2,2.0E2,2.0E2,2.0E2,2.0E2,2.0E2,2.0E2,2.0E2,2.0E2,2.0E2,2.0E2,2.0E2,2.0E3,2.0E3,2.0E3,2.0E3,2.0E3]
-plotlim_array = [2.0E2,2.0E2,2.0E2,2.0E2,2.0E2,2.0E2,2.0E2,2.0E2,2.0E2,2.0E2,2.0E2,2.0E2,2.0E2,2.0E2,2.0E2,2.0E2,2.0E2,2.0E2,2.0E2,2.0E3,2.0E3,2.0E3,2.0E3,2.0E3,2.0E3,2.0E3]
+plotlim_array = [2.0E2,2.0E2,2.0E2,2.0E2,2.0E2,2.0E2,2.0E2,2.0E2,2.0E2,2.0E2,2.0E2,2.0E2,2.0E2,2.0E2,2.0E2,2.0E2,2.0E2,2.0E2,2.0E2,2.0E3,2.0E3,2.0E3,2.0E3,2.0E3,2.0E3,2.0E3,2.0E3,2.0E3]
 
-for det_num in range(26,27):
+#for det_num in range(21,29):
+#for det_num in [21, 22, 23, 28]:
+#for det_num in [22, 23, 28]:
+for det_num in [28]:
     filename = '{}/{}_all.txt'.format(sys.argv[1], det_num)
     plotDet(det_num, '{}'.format(filename), y_array[det_num-1], plotlim_array[det_num-1])
