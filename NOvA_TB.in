@@ -459,7 +459,7 @@ place rosie_vcoil x=36*$inch+0.5*9*$inch y=$translatey z=$Rosie_z-0.5*60*$inch-0
 #-------- Shielding between JGG and Rosie -------------
 param z_shielding=$JGG_z+3*$ft
 
-#6 ft. long
+# 6 ft. long
 box C_block_shield width=3*$ft height=3*$ft length=6*$ft material=CONCRETE color=0.6,0.6,0.6 kill=$kill_aperture
 box L_block_shield width=1.5*$ft height=1*$ft length=3*$ft material=CONCRETE color=0.6,0.6,0.6 kill=$kill_aperture
 place C_block_shield z=$z_shielding+6*$ft x=0 y=724.8144+2*$ft rotation=y90
@@ -475,18 +475,30 @@ box handstack_concrete width=1*$ft height=8*$inch length=6*$ft material=CONCRETE
 box handstack_steel width=1*$ft height=8*$inch length=6*$ft material=Fe color=0.6,0.6,0.6 kill=$kill_aperture
 place handstack_concrete z=$z_shielding+7.5*$ft x=0 y=724.8144-8.0*$inch
 
+# Addition to extend shielding East to the edge of the NOvA TB detector
+box upper_extension width=8*$ft height=3*$ft length=6*$ft material=CONCRETE color=0.6,0.6,0.6 kill=$kill_aperture
+box middle_extension width=7.5*$ft height=3*$ft length=6*$ft material=CONCRETE color=0.6,0.6,0.6 kill=$kill_aperture
+place upper_extension z=$z_shielding+7.5*$ft x=-7*$ft y=724.8144+2*$ft
+place middle_extension z=$z_shielding+7.5*$ft x=-7.25*$ft y=724.8144-1*$ft
+place upper_extension z=$z_shielding+7.5*$ft x=-7*$ft y=724.8144-4*$ft
+
 # Additions to make the shielding 9ft. long instead
-box short_C width=3*$ft height=3*$ft length=3*$ft material=Fe color=0.6,0.6,0.6 kill=$kill_aperture
-place short_C z=$z_shielding+3*$ft x=1.5*$ft y=724.8144+2*$ft
-place short_C z=$z_shielding+3*$ft x=-1.5*$ft y=724.8144+2*$ft
-place short_C z=$z_shielding+3*$ft x=1.5*$ft+6*$inch y=724.8144-1*$ft
-place short_C z=$z_shielding+3*$ft x=-1.5*$ft-6*$inch y=724.8144-1*$ft
-place short_C z=$z_shielding+3*$ft x=1.5*$ft y=724.8144-4*$ft
-place short_C z=$z_shielding+3*$ft x=-1.5*$ft y=724.8144-4*$ft
-place L_block z=$z_shielding+3*$ft x=0 y=724.8144-1*$ft-0.75*$ft rotation=z90
-box handstack2_concrete width=1*$ft height=8*$inch length=3*$ft material=CONCRETE color=0.6,0.6,0.6 kill=$kill_aperture
-box handstack2_steel width=1*$ft height=8*$inch length=3*$ft material=Fe color=0.6,0.6,0.6 kill=$kill_aperture
-place handstack2_steel z=$z_shielding+3*$ft x=0 y=724.8144-8.0*$inch
+#box short_C width=3*$ft height=3*$ft length=3*$ft material=Fe color=0.6,0.6,0.6 kill=$kill_aperture
+#place short_C z=$z_shielding+3*$ft x=1.5*$ft y=724.8144+2*$ft
+#place short_C z=$z_shielding+3*$ft x=-1.5*$ft y=724.8144+2*$ft
+#place short_C z=$z_shielding+3*$ft x=1.5*$ft+6*$inch y=724.8144-1*$ft
+#place short_C z=$z_shielding+3*$ft x=-1.5*$ft-6*$inch y=724.8144-1*$ft
+#place short_C z=$z_shielding+3*$ft x=1.5*$ft y=724.8144-4*$ft
+#place short_C z=$z_shielding+3*$ft x=-1.5*$ft y=724.8144-4*$ft
+#place L_block z=$z_shielding+3*$ft x=0 y=724.8144-1*$ft-0.75*$ft rotation=z90
+#box handstack2_concrete width=1*$ft height=8*$inch length=3*$ft material=CONCRETE color=0.6,0.6,0.6 kill=$kill_aperture
+#box handstack2_steel width=1*$ft height=8*$inch length=3*$ft material=Fe color=0.6,0.6,0.6 kill=$kill_aperture
+#place handstack2_steel z=$z_shielding+3*$ft x=0 y=724.8144-8.0*$inch
+#box upper_extension2 width=8*$ft height=3*$ft length=3*$ft material=CONCRETE color=0.6,0.6,0.6 kill=$kill_aperture
+#box middle_extension2 width=7.5*$ft height=3*$ft length=3*$ft material=CONCRETE color=0.6,0.6,0.6 kill=$kill_aperture
+#place upper_extension2 z=$z_shielding+3*$ft x=-7*$ft y=724.8144+2*$ft
+#place middle_extension2 z=$z_shielding+3*$ft x=-7.25*$ft y=724.8144-1*$ft
+#place upper_extension2 z=$z_shielding+3*$ft x=-7*$ft y=724.8144-4*$ft
 #----------------------------------------
 
 zntuple z=$translatez-400 format=ascii file=23_$first.txt

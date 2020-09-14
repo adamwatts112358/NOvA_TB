@@ -11,7 +11,7 @@ G4REALSURFACEDATA=C:\Geant4Data/RealSurface2.1.1
 G4ABLADATA=C:\Geant4Data/G4ABLA3.1
 G4PARTICLEXSDATA=C:\Geant4Data/G4PARTICLEXS1.1
 G4INCLDATA=C:\Geant4Data/G4INCL1.0
-G4beamline Process ID 928
+G4beamline Process ID 992
 
 *************************************************************
  g4beamline version: 3.06                        (Jan 18 2019)
@@ -434,22 +434,22 @@ place   QQM_field copies=1 x=0.0 y=724.8 z=53419.3
 place   B_block copies=1 x=0.0 y=-213.2 z=52962.1 
 place   L_block copies=1 x=0.0 y=-1127.6 z=53419.3 
 place   L_block copies=1 x=0.0 y=-822.8 z=53419.3 
-genericquad  HeTube        fieldLength=0 ironLength=0 ironRadius=153.4
-                           apertureRadius=152.4 poleTipRadius=0 coilRadius=0
+genericquad  HeTube        fieldLength=0 ironLength=0 ironRadius=77.2
+                           apertureRadius=76.2 poleTipRadius=0 coilRadius=0
                            coilHalfwidth=0 coilHalfWidth=0 gradient=0
                            maxStep=100 ironMaterial=Fe fieldMaterial=He
                            ironColor=0.6,0.6,0.6 kill=0 fringe=0
                            fringeFactor=1 openAperture=0
-tubs         mylar         innerRadius=0 outerRadius=152.4 initialPhi=0
+tubs         mylar         innerRadius=0 outerRadius=76.2 initialPhi=0
                            finalPhi=360 length=0.0762 maxStep=100
-                           material=MYLAR color=0,0.8,0 kill=0 radius=152.4
+                           material=MYLAR color=0,0.8,0 kill=0 radius=76.2
 param        He_length     45500.0
 place   HeTube  copies=1 x=0.0 y=724.8 z=84750.0 
                 fieldLength=45500.0 ironLength=45500.0
 place   mylar   copies=1 x=0.0 y=724.8 z=61999.8 
 place   mylar   copies=1 x=0.0 y=724.8 z=107500.1 
 zntuple                    z=62000-1000 zloop= noSingles=0 format=ascii
-                           file=20_0.txt filename=20_0.txt require=
+                           file=21_0.txt filename=21_0.txt require=
                            referenceParticle=0 coordinates=Centerline
 param        Q6_ds_z       54943.28
 place   C_block copies=1 x=0.0 y=-822.8 z=56746.7 
@@ -528,6 +528,9 @@ place   JGG_h_steel copies=1 x=0.0 y=1901.6 z=98225.2
 place   JGG_h_steel copies=1 x=0.0 y=-460.6 z=98225.2 
 place   JGG_v_steel copies=1 x=1874.8 y=720.5 z=98225.2 
 place   JGG_v_steel copies=1 x=-1874.8 y=720.5 z=98225.2 
+zntuple                    z=98225.152+3000 zloop= noSingles=0 format=ascii
+                           file=22_0.txt filename=22_0.txt require=
+                           referenceParticle=0 coordinates=Centerline
 param        Rosie_z       104408.94
 param        Rosie_y       720.5472
 param        Rosie_steel_length 1524
@@ -553,8 +556,34 @@ place   rosie_vcoil copies=1 x=-1028.7 y=720.5 z=105418.6
 place   rosie_vcoil copies=1 x=1028.7 y=720.5 z=105418.6 
 place   rosie_vcoil copies=1 x=-1028.7 y=720.5 z=103399.3 
 place   rosie_vcoil copies=1 x=1028.7 y=720.5 z=103399.3 
+param        z_shielding   99139.552
+box          C_block_shield height=914.4 width=914.4 length=1829 maxStep=100
+                           material=CONCRETE color=0.6,0.6,0.6 kill=0
+box          L_block_shield height=304.8 width=457.2 length=914.4 maxStep=100
+                           material=CONCRETE color=0.6,0.6,0.6 kill=0
+place   C_block_shield copies=1 x=0.0 y=1334.4 z=100968.4 rotation='y90'
+place   C_block_shield copies=1 x=0.0 y=1334.4 z=101882.8 rotation='y90'
+place   C_block_shield copies=1 x=609.6 y=420.0 z=101425.6 
+place   C_block_shield copies=1 x=-609.6 y=420.0 z=101425.6 
+place   C_block_shield copies=1 x=0.0 y=-494.4 z=100968.4 rotation='y90'
+place   C_block_shield copies=1 x=0.0 y=-494.4 z=101882.8 rotation='y90'
+place   L_block_shield copies=1 x=0.0 y=191.4 z=100968.4 rotation='z90'
+place   L_block_shield copies=1 x=0.0 y=191.4 z=101882.8 rotation='z90'
+box          handstack_concrete height=203.2 width=304.8 length=1829
+                           maxStep=100 material=CONCRETE color=0.6,0.6,0.6
+                           kill=0
+box          handstack_steel height=203.2 width=304.8 length=1829 maxStep=100
+                           material=Fe color=0.6,0.6,0.6 kill=0
+place   handstack_concrete copies=1 x=0.0 y=521.6 z=101425.6 
+box          upper_extension height=914.4 width=2438 length=1829 maxStep=100
+                           material=CONCRETE color=0.6,0.6,0.6 kill=0
+box          middle_extension height=914.4 width=2286 length=1829 maxStep=100
+                           material=CONCRETE color=0.6,0.6,0.6 kill=0
+place   upper_extension copies=1 x=-2133.6 y=1334.4 z=101425.6 
+place   middle_extension copies=1 x=-2209.8 y=420.0 z=101425.6 
+place   upper_extension copies=1 x=-2133.6 y=-494.4 z=101425.6 
 zntuple                    z=108002.99-400 zloop= noSingles=0 format=ascii
-                           file=21_0.txt filename=21_0.txt require=
+                           file=23_0.txt filename=23_0.txt require=
                            referenceParticle=0 coordinates=Centerline
 box          slab          height=31.75 width=6.35 length=209.6 maxStep=100
                            material=Cu color=1.0,0.75,0.0 kill=0
@@ -602,19 +631,19 @@ box          wire_chamber_frame_horizontal height=63 width=128 length=25
 endgroup wire_chamber length=25.0 width=254.0 height=254.0
 place   wire_chamber copies=1 x=-455.7 y=721.1 z=109594.0 rename='wire_chamber_1'rotation='y-16.0'
 zntuple                    z=1535+108002.99 zloop= noSingles=0 format=ascii
-                           file=22_0.txt filename=22_0.txt require=
+                           file=24_0.txt filename=24_0.txt require=
                            referenceParticle=0 coordinates=Centerline
 place   wire_chamber copies=1 x=-860.0 y=721.4 z=111001.9 rename='wire_chamber_2'rotation='y-16.0'
 zntuple                    z=2945+108002.99 zloop= noSingles=0 format=ascii
-                           file=23_0.txt filename=23_0.txt require=
+                           file=25_0.txt filename=25_0.txt require=
                            referenceParticle=0 coordinates=Centerline
 place   wire_chamber copies=1 x=-1352.9 y=720.6 z=115372.4 rename='wire_chamber_3'rotation='y0.0'
 zntuple                    z=7335+108002.99 zloop= noSingles=0 format=ascii
-                           file=24_0.txt filename=24_0.txt require=
+                           file=26_0.txt filename=26_0.txt require=
                            referenceParticle=0 coordinates=Centerline
 place   wire_chamber copies=1 x=-1353.9 y=720.9 z=118146.3 rename='wire_chamber_4'rotation='y0.0'
 zntuple                    z=10115+108002.99 zloop= noSingles=0 format=ascii
-                           file=25_0.txt filename=25_0.txt require=
+                           file=27_0.txt filename=27_0.txt require=
                            referenceParticle=0 coordinates=Centerline
 tubs         mylar_window  innerRadius=0 outerRadius=76.2 initialPhi=0
                            finalPhi=360 length=0.0762 maxStep=100
@@ -837,7 +866,7 @@ place   shielding_block copies=1 x=2.2 y=847.0 z=111769.3 rename='shielding_bloc
 place   shielding_block copies=1 x=-894.5 y=859.9 z=114670.4 rename='shielding_block_2'rotation='y0.0'
 place   shielding_block copies=1 x=-1820.0 y=852.2 z=114651.9 rename='shielding_block_3'rotation='y0.0'
 zntuple                    z=14580+108002.99 zloop= noSingles=0 format=ascii
-                           file=26_0.txt filename=26_0.txt require=
+                           file=28_0.txt filename=28_0.txt require=
                            referenceParticle=0 coordinates=Centerline
 
 World size (before incrementing by 201.357 mm): 8870.0 H  12801.6 W  245260.3 L
@@ -933,6 +962,7 @@ top_plate_height=47.2
  wallClockLimit=-1
   worldMaterial=AIR
      zTolerance=2.0
+    z_shielding=99139.552
 Checking overlaps for volume MC6T1 ... OK! 
 BLCMDbox::Construct MC6T1 parent= relZ=100.0 globZ=100.0
 	zmin=0.0 zmax=200.0
@@ -1823,6 +1853,42 @@ BLCMDbox::Construct rosie_vcoil parent= relZ=103399.3 globZ=103399.3
 Checking overlaps for volume rosie_vcoil ... OK! 
 BLCMDbox::Construct rosie_vcoil parent= relZ=103399.3 globZ=103399.3
 	zmin=103151.6 zmax=103646.9
+Checking overlaps for volume C_block_shield ... OK! 
+BLCMDbox::Construct C_block_shield parent= relZ=100968.4 globZ=100968.4
+	zmin=100054.0 zmax=101882.8
+Checking overlaps for volume C_block_shield ... OK! 
+BLCMDbox::Construct C_block_shield parent= relZ=101882.8 globZ=101882.8
+	zmin=100968.4 zmax=102797.2
+Checking overlaps for volume C_block_shield ... OK! 
+BLCMDbox::Construct C_block_shield parent= relZ=101425.6 globZ=101425.6
+	zmin=100511.2 zmax=102340.0
+Checking overlaps for volume C_block_shield ... OK! 
+BLCMDbox::Construct C_block_shield parent= relZ=101425.6 globZ=101425.6
+	zmin=100511.2 zmax=102340.0
+Checking overlaps for volume C_block_shield ... OK! 
+BLCMDbox::Construct C_block_shield parent= relZ=100968.4 globZ=100968.4
+	zmin=100054.0 zmax=101882.8
+Checking overlaps for volume C_block_shield ... OK! 
+BLCMDbox::Construct C_block_shield parent= relZ=101882.8 globZ=101882.8
+	zmin=100968.4 zmax=102797.2
+Checking overlaps for volume L_block_shield ... OK! 
+BLCMDbox::Construct L_block_shield parent= relZ=100968.4 globZ=100968.4
+	zmin=100511.2 zmax=101425.6
+Checking overlaps for volume L_block_shield ... OK! 
+BLCMDbox::Construct L_block_shield parent= relZ=101882.8 globZ=101882.8
+	zmin=101425.6 zmax=102340.0
+Checking overlaps for volume handstack_concrete ... OK! 
+BLCMDbox::Construct handstack_concrete parent= relZ=101425.6 globZ=101425.6
+	zmin=100511.2 zmax=102340.0
+Checking overlaps for volume upper_extension ... OK! 
+BLCMDbox::Construct upper_extension parent= relZ=101425.6 globZ=101425.6
+	zmin=100511.2 zmax=102340.0
+Checking overlaps for volume middle_extension ... OK! 
+BLCMDbox::Construct middle_extension parent= relZ=101425.6 globZ=101425.6
+	zmin=100511.2 zmax=102340.0
+Checking overlaps for volume upper_extension ... OK! 
+BLCMDbox::Construct upper_extension parent= relZ=101425.6 globZ=101425.6
+	zmin=100511.2 zmax=102340.0
 Checking overlaps for volume target_slab_-2 ... OK! 
 BLCMDbox::Construct target_slab_-2 parent= relZ=108047.3 globZ=108047.3
 	zmin=107942.5 zmax=108152.1
